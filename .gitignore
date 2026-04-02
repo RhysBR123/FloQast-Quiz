@@ -1,0 +1,5 @@
+node_modules/
+.astro/
+.netlify/
+.claude/
+package-lock.json
