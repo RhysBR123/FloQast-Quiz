@@ -2775,10 +2775,9 @@ function showResults() {
   const results = document.getElementById('results-section');
   results.classList.add('active');
 
-  // Populate gate cover image from guide section
+  // Populate gate cover image
   const gateCoverImg = document.getElementById('gate-cover-img');
-  const guideCover = document.querySelector('.guide-cover');
-  if (gateCoverImg && guideCover) gateCoverImg.src = guideCover.src;
+  if (gateCoverImg) gateCoverImg.src = 'playbook-cover.jpeg';
 
   const total = selected.reduce((a, b) => a + b, 0);
   const pct = Math.round((total - 8) / 24 * 100);
@@ -2877,7 +2876,7 @@ function showResults() {
     <p>We already know where to point you next. These are the two sections most aligned to the gap your answers surfaced.</p>
     <div class="playbook-layout">
       <div class="playbook-cover-col">
-        <img class="playbook-cover-preview" src="${document.querySelector('.guide-cover')?.src || ''}" alt="AI Playbook for Accounting cover">
+        <img class="playbook-cover-preview" src="playbook-cover.jpeg" alt="AI Playbook for Accounting cover">
         <a class="playbook-read-btn" href="#guide">Read Now</a>
       </div>
       <div class="playbook-content">
