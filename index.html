@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What's Your AI Readiness Score? | FloQast</title>
+<style>
+  /* === BRAND FONTS === */
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Semibold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Italic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Semibold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Italic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+
+  :root {
+    --plum: #3D1952;
+    --purple: #6B2D8B;
+    --violet: #9B59B6;
+    --lavender: #C89FD6;
+    --pale: #F3E8F9;
+    --cream: #FDF8F4;
+    --mint: #2ECC71;
+    --amber: #F39C12;
+    --coral: #E74C3C;
+    --sky: #3498DB;
+    --slate: #2C3E50;
+    --text: #1a1a2e;
+    --text-light: #5a5a7a;
+    --white: #ffffff;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(1.08); }
+  }
+  @keyframes gentlePulse2 {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.05); }
+  }
+  @keyframes bounceArrow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+  @keyframes scrollReveal {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes statCountPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes lineGrow {
+    from { width: 0; }
+    to { width: 48px; }
+  }
+
+  /* === HERO === */
+  .hero {
+    background: var(--plum);
+    position: relative;
+    overflow: hidden;
+    padding: 80px 24px 100px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(155,89,182,0.25) 0%, transparent 70%);
+    pointer-events: none;
+    animation: gentlePulse 6s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(107,45,139,0.3) 0%, transparent 70%);
+    pointer-events: none;
+    animation: gentlePulse2 8s ease-in-out infinite 1s;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-logo {
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: heroFadeIn 0.6s ease forwards;
+    animation-delay: 0s;
+  }
+  .hero-logo svg {
+    height: 32px;
+    width: auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    border: 1px solid rgba(200,159,214,0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    font-weight: 500;
+    opacity: 0;
+    animation: heroFadeUp 0.7s ease forwards;
+    animation-delay: 0.1s;
+  }
+  .hero h1 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    font-weight: 500;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(
+      90deg,
+      var(--lavender) 0%,
+      #e8d0f0 25%,
+      var(--white) 50%,
+      #e8d0f0 75%,
+      var(--lavender) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    animation-delay: 1.2s;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards;
+    animation-delay: 0.55s;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    color: var(--plum);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards;
+    animation-delay: 0.8s;
+  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .hero-cta svg {
+    width: 18px;
+    height: 18px;
+    animation: bounceArrow 1.8s ease-in-out infinite;
+    animation-delay: 1.8s;
+  }
+
+  /* === NARRATIVE === */
+  .narrative {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 24px 72px;
+  }
+  .narrative h2 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 500;
+    margin-bottom: 28px;
+    color: var(--plum);
+    line-height: 1.25;
+  }
+  .narrative p {
+    font-size: 1.06rem;
+    line-height: 1.85;
+    color: var(--text-light);
+    margin-bottom: 0;
+  }
+  .narrative p + p {
+    margin-top: 22px;
+  }
+  .narrative p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  /* Scroll reveal for narrative children */
+  .narrative .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .narrative .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === QUIZ SECTION === */
+  .quiz-section {
+    background: var(--white);
+    padding: 72px 24px 80px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  .quiz-container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .quiz-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .quiz-header h2 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 8px;
+  }
+  .quiz-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* Progress */
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(107,45,139,0.1);
+    border-radius: 4px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--violet));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-text {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    text-align: right;
+  }
+
+  /* Question card */
+  #questions-container {
+    position: relative;
+  }
+  .question-card {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.36s ease;
+  }
+  .question-card.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .question-card.exiting {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
+  }
+
+  .q-dimension {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--plum);
+    line-height: 1.4;
+    margin-bottom: 28px;
+  }
+
+  .answer-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border: 1.5px solid rgba(107,45,139,0.15);
+    border-radius: 10px;
+    background: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.5;
+  }
+  .answer-option:hover {
+    border-color: var(--violet);
+    background: var(--pale);
+  }
+  .answer-option.selected {
+    border-color: var(--purple);
+    background: var(--pale);
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(107,45,139,0.1);
+    transition: border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+  }
+
+  /* Nav buttons */
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+  .btn-back {
+    background: none;
+    border: none;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 10px 0;
+    transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--purple); }
+  .btn-back.hidden { visibility: hidden; }
+
+  .btn-next {
+    background: var(--plum);
+    color: var(--white);
+    border: none;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .btn-next.enabled {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .btn-next.enabled:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(107,45,139,0.3);
+  }
+
+  /* === RESULTS === */
+  .results-section {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .results-section.active {
+    display: grid;
+    gap: 40px;
+    width: calc(100% + 80px);
+    margin-left: -40px;
+  }
+
+  .score-display {
+    text-align: center;
+    padding: 72px 44px 64px;
+    background: linear-gradient(135deg, var(--plum) 0%, #52247a 100%);
+    border-radius: 22px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(61,25,82,0.16);
+  }
+  .score-display::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  }
+  .score-display::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+  .score-pct {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    position: relative;
+  }
+  .score-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+  .score-profile {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.75rem;
+    color: var(--white);
+    font-weight: 500;
+  }
+  .score-intro {
+    max-width: 620px;
+    margin: 14px auto 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.82);
+    position: relative;
+  }
+  .score-arc-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 8px;
+  }
+  .score-arc-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .score-arc-wrap .score-pct {
+    position: relative;
+    z-index: 1;
+  }
+  .score-arc-fill {
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .results-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .results-section.active .results-reveal {
+    animation: resultReveal 0.72s cubic-bezier(.18,.8,.28,1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes resultReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .section-number {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--violet);
+    margin-bottom: 6px;
+  }
+
+  .maturity-card {
+    background: linear-gradient(160deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 0;
+    box-shadow: 0 12px 34px rgba(61,25,82,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .maturity-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.09);
+  }
+  .maturity-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .maturity-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .maturity-title {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.55rem;
+    line-height: 1.25;
+    color: var(--plum);
+  }
+  .maturity-badge {
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--plum);
+    background: rgba(107,45,139,0.1);
+    border: 1px solid rgba(107,45,139,0.14);
+    border-radius: 999px;
+    padding: 9px 12px;
+  }
+  .maturity-summary {
+    max-width: 760px;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 22px;
+  }
+  .maturity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .maturity-pane {
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(107,45,139,0.1);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .maturity-pane-label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 7px;
+  }
+  .maturity-pane p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .maturity-progress {
+    margin-bottom: 18px;
+  }
+  .maturity-progress-label {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px;
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+    color: var(--text);
+  }
+  .maturity-progress-track {
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(107,45,139,0.1);
+  }
+  .maturity-progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple) 0%, var(--sky) 100%);
+    transition: width 0.9s ease;
+  }
+  .maturity-journey {
+    margin-top: 22px;
+    padding: 22px 20px 20px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(107,45,139,0.08) 0%, rgba(255,255,255,0.98) 100%);
+    border: 1px solid rgba(107,45,139,0.1);
+  }
+  .maturity-journey-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 16px;
+  }
+  .maturity-journey-head p {
+    max-width: 420px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+  .maturity-scale {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    position: relative;
+    padding-top: 18px;
+  }
+  .maturity-scale::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(107,45,139,0.16) 0%, rgba(88,160,255,0.16) 100%);
+  }
+  .maturity-step {
+    padding: 12px 10px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(107,45,139,0.1);
+    background: rgba(255,255,255,0.82);
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    text-align: center;
+    cursor: default;
+  }
+  .maturity-step::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--white);
+    border: 2px solid rgba(107,45,139,0.24);
+    box-shadow: 0 0 0 6px rgba(107,45,139,0.05);
+  }
+  .maturity-step.active {
+    border-color: rgba(107,45,139,0.32);
+    background: linear-gradient(180deg, rgba(107,45,139,0.18) 0%, rgba(255,255,255,0.98) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(61,25,82,0.1);
+  }
+  .maturity-step.active::before {
+    background: var(--plum);
+    border-color: var(--plum);
+    box-shadow: 0 0 0 8px rgba(107,45,139,0.12);
+  }
+  .maturity-step.completed {
+    border-color: rgba(107,45,139,0.18);
+    background: rgba(107,45,139,0.06);
+  }
+  .maturity-step.completed::before {
+    background: rgba(107,45,139,0.65);
+  }
+  .maturity-step-level {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .maturity-step-title {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--plum);
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .maturity-step-copy {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    background: rgba(61,25,82,0.94);
+    color: #fff;
+    padding: 10px 13px;
+    border-radius: 9px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    text-align: left;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+    z-index: 20;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+  .maturity-step-copy::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(61,25,82,0.94);
+  }
+  .maturity-step:hover .maturity-step-copy {
+    opacity: 1;
+  }
+  .insight-pullout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 0;
+    align-items: stretch;
+  }
+
+  /* Dimension bars */
+  .dimensions-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 0;
+    box-shadow: 0 12px 34px rgba(61,25,82,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .dimensions-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.09);
+  }
+  .dimensions-card h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: var(--plum);
+  }
+  .breakdown-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
+    gap: 32px;
+    align-items: center;
+  }
+  .breakdown-visual {
+    display: block;
+  }
+  .breakdown-viz-card {
+    border: 1px solid rgba(107,45,139,0.1);
+    border-radius: 16px;
+    background: linear-gradient(160deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    padding: 20px 20px 18px;
+  }
+  .breakdown-viz-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .breakdown-radar-wrap {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+  .breakdown-radar {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  @keyframes radarGlow {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(107,45,139,0.3)); }
+    50% { filter: drop-shadow(0 0 12px rgba(107,45,139,0.6)); }
+  }
+  .breakdown-radar.glow-active {
+    animation: radarGlow 2s ease-in-out 3;
+  }
+  .breakdown-bars {
+    display: grid;
+    gap: 14px;
+    align-content: center;
+  }
+  .dim-row {
+    margin-bottom: 0;
+    padding: 16px 18px;
+    border: 1px solid rgba(107,45,139,0.08);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(107,45,139,0.02) 100%);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .dim-row:last-child { margin-bottom: 0; }
+  .dim-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .dim-label span:last-child {
+    font-weight: 600;
+    color: var(--purple);
+  }
+  .dim-track {
+    height: 8px;
+    background: rgba(107,45,139,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .dim-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+    width: 0%;
+  }
+  .dim-fill.strategic { background: var(--purple); }
+  .dim-fill.operational { background: var(--sky); }
+  .dim-fill.execution { background: var(--amber); }
+  .dim-fill.sustainability { background: var(--mint); }
+
+  /* Dimension icons */
+  .dim-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .dim-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .dim-label-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Dimension tooltips */
+  .dim-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--plum);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 10px 14px;
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+    font-style: italic;
+  }
+  .dim-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 26px;
+    border: 6px solid transparent;
+    border-top-color: var(--plum);
+  }
+  .dim-row:hover .dim-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .dim-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(61,25,82,0.1);
+  }
+
+  /* Insight cards */
+  .insight-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 0;
+    box-shadow: 0 12px 30px rgba(61,25,82,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .insight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.08);
+  }
+  .insight-card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .insight-card p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .insight-card.emphasis {
+    background: linear-gradient(135deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    border-color: rgba(107,45,139,0.12);
+  }
+  /* From the playbook callout */
+  .playbook-callout {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--purple);
+    background: var(--pale);
+    border-radius: 0 12px 12px 0;
+  }
+  .playbook-callout-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .playbook-callout-label svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+  .playbook-callout p {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--plum);
+    font-style: italic;
+    font-weight: 400;
+    margin: 0;
+  }
+  @keyframes calloutPulse {
+    0%, 100% { border-left-color: var(--purple); }
+    50% { border-left-color: var(--violet); }
+  }
+  .playbook-callout.animate-in {
+    animation: calloutPulse 1.2s ease 0.4s 2;
+  }
+  .strength-card {
+    background: linear-gradient(135deg, rgba(53,189,136,0.08) 0%, rgba(255,255,255,1) 100%);
+    border-color: rgba(53,189,136,0.16);
+  }
+  .insight-contrast-card {
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    padding: 20px 18px;
+    box-shadow: 0 8px 24px rgba(61,25,82,0.03);
+    display: grid;
+    align-content: center;
+    gap: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .insight-contrast-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.08);
+  }
+  .contrast-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+  }
+  .contrast-row {
+    display: grid;
+    gap: 8px;
+  }
+  .contrast-name {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.86rem;
+    color: var(--text);
+  }
+  .contrast-name strong {
+    color: var(--plum);
+  }
+  .contrast-track {
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(107,45,139,0.08);
+  }
+  .contrast-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    transition: width 0.8s ease;
+  }
+  .contrast-fill.gap {
+    background: linear-gradient(90deg, rgba(107,45,139,0.9) 0%, rgba(107,45,139,0.45) 100%);
+  }
+  .contrast-fill.strength {
+    background: linear-gradient(90deg, rgba(53,189,136,0.92) 0%, rgba(53,189,136,0.52) 100%);
+  }
+  .contrast-delta {
+    padding-top: 8px;
+    border-top: 1px solid rgba(107,45,139,0.08);
+  }
+  .contrast-delta strong {
+    display: block;
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.55rem;
+    color: var(--plum);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .contrast-delta span {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--text-light);
+  }
+  .insight-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.77rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .insight-big-title {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.52rem;
+    line-height: 1.25;
+    color: var(--plum);
+    margin-bottom: 12px;
+  }
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .analysis-pane {
+    background: rgba(107,45,139,0.04);
+    border: 1px solid rgba(107,45,139,0.1);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .analysis-pane strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.77rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 8px;
+  }
+  .analysis-pane span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .risk-inline {
+    margin-top: 16px;
+    padding: 15px 17px;
+    border-radius: 12px;
+    border-left: 3px solid var(--coral);
+    background: #FFF8F7;
+  }
+  .risk-inline strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.77rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 7px;
+  }
+  .risk-inline span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.62;
+    color: var(--text);
+  }
+  .playbook-card {
+    background: linear-gradient(135deg, rgba(61,25,82,0.03) 0%, rgba(107,45,139,0.05) 100%);
+    border-color: rgba(61,25,82,0.12);
+  }
+  .playbook-layout {
+    display: grid;
+    grid-template-columns: 168px minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+    margin-top: 18px;
+  }
+  .playbook-cover-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .playbook-cover-preview {
+    width: 100%;
+    max-width: 168px;
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(61,25,82,0.14), 0 4px 10px rgba(0,0,0,0.08);
+    transform: none;
+    background: rgba(255,255,255,0.85);
+  }
+  .playbook-read-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--plum);
+    color: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 10px 16px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .playbook-read-btn:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+  }
+  .playbook-content {
+    min-width: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .playbook-steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+  }
+  .playbook-step {
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.88);
+  }
+  .playbook-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 76px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: rgba(107,45,139,0.09);
+    color: var(--plum);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .playbook-step-title {
+    display: block;
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--plum);
+    line-height: 1.45;
+    margin-bottom: 4px;
+  }
+  .playbook-step-page {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: auto;
+  }
+  .playbook-step-snippet {
+    display: block;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    color: var(--text-light);
+    margin-top: 6px;
+    margin-bottom: 8px;
+  }
+  .guide-card-body {
+    text-align: center;
+  }
+  .guide-download-btn {
+    display: inline-block;
+    margin: 0 auto;
+  }
+  .action-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .action-card {
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 16px;
+    padding: 18px;
+    background: linear-gradient(180deg, rgba(107,45,139,0.05) 0%, rgba(255,255,255,1) 100%);
+  }
+  .action-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .action-card-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: var(--plum);
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.84rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .action-card-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--plum);
+    line-height: 1.35;
+  }
+  .action-card p {
+    font-size: 0.9rem;
+    line-height: 1.62;
+    color: var(--text);
+  }
+  .insight-list {
+    list-style: none;
+    margin-top: 14px;
+    display: grid;
+    gap: 12px;
+  }
+  .insight-list li {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .insight-list-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: rgba(107,45,139,0.09);
+    color: var(--plum);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .insight-list-copy strong {
+    display: block;
+    font-size: 0.87rem;
+    color: var(--plum);
+    margin-bottom: 2px;
+  }
+  .insight-list-copy span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .insight-gap-cta {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.78rem;
+    letter-spacing: 0.3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--violet);
+    text-decoration: none;
+    border: 1px solid rgba(107,45,139,0.2);
+    border-radius: 999px;
+    padding: 7px 11px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .insight-gap-cta:hover {
+    background: rgba(107,45,139,0.06);
+    border-color: rgba(107,45,139,0.35);
+  }
+  .insight-card.risk {
+    border-left: 3px solid var(--coral);
+    background: #FFF8F7;
+  }
+  .insight-card.risk h3 { color: var(--coral); }
+
+  .results-cta {
+    margin-top: 40px;
+    padding: 40px 32px;
+    background: var(--pale);
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .results-cta-cover {
+    width: 160px;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(61,25,82,0.15), 0 2px 6px rgba(0,0,0,0.08);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+  .results-cta-cover:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  .results-cta-body h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .results-cta-body p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .email-capture {
+    display: flex;
+    gap: 10px;
+  }
+  .email-capture input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1.5px solid rgba(107,45,139,0.2);
+    border-radius: 10px;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-capture input::placeholder { color: #aaa; }
+  .email-capture input:focus { border-color: var(--purple); }
+  .email-capture button {
+    background: var(--plum);
+    color: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .email-capture button:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(107,45,139,0.3);
+  }
+  .email-capture-note {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+  .email-success {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.25);
+    border-radius: 10px;
+    color: #1a7a3a;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  @media (max-width: 600px) {
+    .results-section.active {
+      gap: 24px;
+      width: 100%;
+      margin-left: 0;
+    }
+    .score-display {
+      padding: 46px 22px 38px;
+      border-radius: 18px;
+    }
+    .maturity-card,
+    .dimensions-card,
+    .insight-card,
+    .results-section .floqademy-section {
+      padding: 24px 20px;
+      border-radius: 18px;
+    }
+    .maturity-header {
+      flex-direction: column;
+    }
+    .maturity-title {
+      font-size: 1.35rem;
+    }
+    .maturity-grid {
+      grid-template-columns: 1fr;
+    }
+    .maturity-progress-label {
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .maturity-journey {
+      padding: 18px 16px 16px;
+    }
+    .maturity-journey-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .maturity-scale {
+      grid-template-columns: 1fr;
+    }
+    .maturity-step {
+      min-height: auto;
+    }
+    .insight-pullout {
+      grid-template-columns: 1fr;
+    }
+    .breakdown-layout,
+    .playbook-layout,
+    .analysis-grid,
+    .playbook-steps,
+    .action-cards {
+      grid-template-columns: 1fr;
+    }
+    .playbook-cover-preview {
+      width: 140px;
+      margin: 0 auto;
+      max-width: 140px;
+    }
+    .results-cta {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .results-cta-cover {
+      margin: 0 auto;
+      width: 140px;
+      transform: rotate(0);
+    }
+    .email-capture { flex-direction: column; }
+  }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+
+    .hero { padding: 56px 20px 72px; }
+    .score-pct { font-size: 3.5rem; }
+    .score-arc-wrap {
+      width: 130px;
+      height: 130px;
+    }
+    .score-intro { font-size: 0.9rem; }
+  }
+
+  /* === GUIDE SECTION === */
+  .guide-section {
+    background: var(--plum);
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .guide-section::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -15%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(155,89,182,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .guide-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .guide-card {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .guide-cover {
+    width: 150px;
+    border-radius: 8px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+  .guide-cover:hover { transform: rotate(0deg) scale(1.03); }
+  .guide-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .guide-card-body h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .guide-card-body p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 24px;
+    line-height: 1.65;
+  }
+  .guide-card-body .email-capture input {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+  .guide-card-body .email-capture input::placeholder { color: rgba(255,255,255,0.45); }
+  .guide-card-body .email-capture input:focus { border-color: var(--lavender); }
+  .guide-card-body .email-capture button {
+    background: var(--white);
+    color: var(--plum);
+  }
+  .guide-card-body .email-capture button:hover {
+    background: var(--pale);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .guide-card-body .email-capture-note { color: rgba(255,255,255,0.45); }
+  @media (max-width: 600px) {
+    .guide-card { grid-template-columns: 1fr; text-align: center; }
+    .guide-cover { margin: 0 auto; transform: rotate(0); }
+    .guide-card-body .email-capture { flex-direction: column; }
+  }
+
+  /* === FLOQADEMY RECOMMENDATIONS === */
+  .floqademy-section {
+    display: none;
+    margin-top: 0;
+    padding: 32px 28px 28px;
+    background: linear-gradient(135deg, rgba(61,25,82,0.03) 0%, rgba(107,45,139,0.05) 100%);
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(61,25,82,0.04);
+  }
+  .results-section .floqademy-section {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 28px 28px 24px;
+    background: linear-gradient(135deg, rgba(61,25,82,0.02) 0%, rgba(107,45,139,0.04) 100%);
+    border-color: rgba(61,25,82,0.14);
+  }
+  .floqademy-section.active { display: block; }
+  .floqademy-header {
+    margin-bottom: 20px;
+  }
+  .floqademy-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .floqademy-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--violet);
+  }
+  .floqademy-section h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 4px;
+  }
+  .floqademy-section .fq-subtext {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0;
+  }
+  .floqademy-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .fq-card {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(107,45,139,0.12);
+    border-radius: 10px;
+    background: var(--white);
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .fq-card:hover {
+    border-color: var(--violet);
+    box-shadow: 0 2px 12px rgba(107,45,139,0.1);
+  }
+  .fq-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(107,45,139,0.16);
+    background: linear-gradient(160deg, #ffffff 0%, #f7f3fb 100%);
+  }
+  .fq-card-icon::before,
+  .fq-card-icon::after {
+    content: '';
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(107,45,139,0.2);
+  }
+  .fq-card-icon::before {
+    width: 18px;
+    height: 18px;
+    top: 5px;
+    right: 5px;
+  }
+  .fq-card-icon::after {
+    width: 24px;
+    height: 24px;
+    bottom: -8px;
+    left: -8px;
+  }
+  .fq-card-icon.fq-foundations {
+    background:
+      linear-gradient(180deg, rgba(107,45,139,0.26) 0%, rgba(107,45,139,0.08) 100%),
+      repeating-linear-gradient(90deg, transparent 0 8px, rgba(255,255,255,0.32) 8px 10px);
+  }
+  .fq-card-icon.fq-unleashed {
+    background:
+      linear-gradient(145deg, rgba(166,147,255,0.34) 0%, rgba(107,45,139,0.14) 100%),
+      linear-gradient(35deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+  }
+  .fq-card-icon.fq-governance {
+    background:
+      linear-gradient(180deg, rgba(53,189,136,0.24) 0%, rgba(107,45,139,0.1) 100%),
+      repeating-linear-gradient(0deg, transparent 0 7px, rgba(255,255,255,0.28) 7px 9px);
+  }
+  .fq-card-icon.fq-matching {
+    background:
+      radial-gradient(circle at 65% 32%, rgba(255,255,255,0.65) 0 14%, transparent 15%),
+      linear-gradient(145deg, rgba(88,160,255,0.22) 0%, rgba(107,45,139,0.14) 100%);
+  }
+  .fq-card-icon.fq-agent {
+    background:
+      linear-gradient(135deg, rgba(107,45,139,0.28) 0%, rgba(61,25,82,0.12) 100%),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.22) 0 3px, transparent 3px 7px);
+  }
+  .fq-card-icon.fq-transform {
+    background:
+      linear-gradient(145deg, rgba(255,116,109,0.24) 0%, rgba(107,45,139,0.14) 100%),
+      linear-gradient(15deg, rgba(255,255,255,0.24), rgba(255,255,255,0));
+  }
+  .fq-card-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .fq-card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+  }
+  .fq-card-arrow {
+    font-size: 0.9rem;
+    color: var(--violet);
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .fq-card:hover .fq-card-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+  .floqademy-browse-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--purple);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .floqademy-browse-all:hover {
+    background: rgba(107,45,139,0.06);
+    color: var(--plum);
+  }
+
+
+  /* Inline stat numbers inside prose */
+  .num-inline {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: -0.5px;
+  }
+
+  /* === RESULTS GATE === */
+  .results-gate {
+    position: relative;
+  }
+  .gated-content {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+    transition: filter 0.5s ease;
+  }
+  .gated-content.unlocked {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+  }
+  .gate-card {
+    position: sticky;
+    top: 32px;
+    z-index: 10;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(61,25,82,0.18), 0 2px 8px rgba(0,0,0,0.06);
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(107,45,139,0.12);
+  }
+  .gate-layout {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .gate-cover-img {
+    width: 88px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    box-shadow: 4px 4px 16px rgba(0,0,0,0.15);
+  }
+  .gate-form { flex: 1; }
+  .gate-headline {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+  .gate-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .gate-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .gate-field label {
+    font-size: 0.72rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .gate-field input {
+    padding: 10px 14px;
+    border: 1.5px solid rgba(107,45,139,0.2);
+    border-radius: 8px;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .gate-field input::placeholder { color: #bbb; }
+  .gate-field input:focus { border-color: var(--purple); }
+  .gate-field input.error { border-color: var(--coral); }
+  .gate-submit-btn {
+    width: 100%;
+    background: var(--plum);
+    color: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .gate-submit-btn:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(107,45,139,0.3);
+  }
+  @media (max-width: 580px) {
+    .gate-form-grid { grid-template-columns: 1fr; }
+  }
+  .gate-success {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.25);
+    border-radius: 10px;
+    color: #1a7a3a;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  .guide-download-btn {
+    display: inline-block;
+    background: var(--white);
+    color: var(--plum);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 13px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .guide-download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+  @media (max-width: 500px) {
+    .gate-layout { flex-direction: column; align-items: flex-start; }
+    .gate-cover-img { width: 70px; }
+    .gate-card { padding: 20px; top: 16px; }
+    .gate-headline { font-size: 1rem; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-logo">
+      <svg width="126" height="32" viewBox="0 0 126 32" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#fq-logo-clip)"><path d="M26.8902 0L25.4864 8.05055H24.6495C22.159 8.05055 20.0277 9.82171 19.5938 12.2519L19.4589 13.0102H14.3704L13.5955 17.3577H18.684L17.8016 22.3191H12.8535L11.3803 30.5953H6.2663L7.73944 22.3191H0L0.882423 17.3577H8.39396L9.16699 13.0102H1.65728L2.5397 8.05236H10.0512L11.4843 0H16.6858L15.2528 8.05236H20.3942H20.3413L21.7743 0H26.8902Z" fill="#90E39A"/><path d="M96.0854 14.4917C96.1637 14.4917 96.1455 14.4917 96.2203 14.4917C97.6186 14.4953 100.744 14.4917 100.966 14.4917C100.864 15.0676 100.762 15.6237 100.663 16.178C100.328 18.0521 99.9924 19.9261 99.6551 21.8002C99.3981 23.2301 99.1355 24.6583 98.8766 26.0882C98.7472 26.8031 98.6214 27.4206 98.5047 28.2349C98.4901 28.4606 98.5922 30.5314 98.5922 30.5766C97.1556 30.573 94.9914 30.573 93.5566 30.5766C93.5475 30.4664 93.4362 29.533 93.4125 29.2947C93.356 29.3272 93.3469 29.329 93.2995 29.3615C91.9303 30.2516 90.3678 30.9647 88.7033 30.8871C86.4389 30.7806 84.6266 29.8399 83.4051 27.8918C82.6776 26.7309 82.3768 25.4545 82.2875 24.1058C82.2218 23.1236 82.3057 22.1595 82.5354 21.2062C82.8581 19.8611 83.4999 18.6677 84.3786 17.6025C85.7989 15.8819 87.6021 14.7535 89.7935 14.2534C91.3268 13.9031 92.8656 13.8508 94.3734 14.3744C94.8675 14.5459 95.3178 14.8365 95.7863 15.0767C95.8246 15.0965 95.9267 15.1579 95.9668 15.1868C95.9942 15.0731 96.0471 14.7354 96.0872 14.4953L96.0854 14.4917ZM90.6048 26.8862C91.8355 26.8663 92.9203 26.4655 93.8355 25.644C93.872 25.6115 93.8975 25.5881 93.9504 25.5321C93.965 25.4671 93.9704 25.422 93.9796 25.375C94.3333 23.4161 94.6815 21.4554 95.0224 19.4928C95.0315 19.4423 95.0133 19.5434 95.0589 19.2653C95.0407 19.2419 95.0005 19.2076 94.9696 19.1805C94.6687 18.9187 94.3716 18.6316 94.0233 18.4511C93.0844 17.9654 92.078 17.8914 91.0442 18.0918C89.2703 18.4366 88.0232 19.4116 87.3833 21.1033C87.1681 21.6738 87.1153 22.2714 87.0824 22.8781C87.046 23.5786 87.0916 24.2647 87.3669 24.911C87.9229 26.2182 89.0478 26.8826 90.6048 26.8862ZM37.4662 26.8483C36.8627 26.693 36.5746 26.173 36.6312 25.4942L36.839 24.3261L39.736 8.05162H34.859L32.983 18.5829C32.8863 19.1155 32.7897 19.6481 32.6949 20.1807C32.4214 21.7045 32.1516 23.2283 31.8799 24.7521C31.8599 24.8641 31.8453 24.976 31.8252 25.0862L31.7559 25.4743L31.7596 25.4797C31.6575 26.09 31.5736 26.702 31.6046 27.3285C31.6812 28.8343 32.6675 30.1342 34.2081 30.6163C35.3804 30.9828 36.571 30.9395 37.7597 30.7011C37.9676 30.5314 37.9767 30.4863 38.6221 26.8988C38.5327 26.9061 38.478 26.9151 38.4252 26.9133C38.1025 26.8988 37.767 26.9313 37.4625 26.8537L37.4662 26.8483ZM32.5509 13.0094L33.4333 8.04982H24.6492C22.1587 8.04982 20.0274 9.82098 19.5935 12.2511L19.4585 13.0094L18.6837 17.357L17.8013 22.3184L16.3281 30.5928H21.5315L23.0046 22.3166H30.8936L31.776 17.357H23.8889L24.6619 13.0094H32.5509ZM56.9251 21.7316C56.9451 24.0823 56.2158 26.0539 54.7555 27.7438C53.4191 29.2893 51.7035 30.2353 49.7162 30.7282C48.6387 30.9954 47.5429 31.0568 46.4454 30.9846C44.4052 30.8528 42.5711 30.183 41.1107 28.7205C39.9949 27.603 39.3732 26.2254 39.1544 24.6691C38.9703 23.3637 39.0651 22.0764 39.4243 20.8108C39.798 19.4946 40.4434 18.3211 41.3587 17.2956C42.5529 15.9614 44.0278 15.0514 45.738 14.5152C46.5201 14.2696 47.3242 14.1487 48.1464 14.0945C49.2166 14.0259 50.2704 14.1053 51.2987 14.3834C53.3662 14.9395 54.9688 16.1184 56.008 17.9961C56.6716 19.1931 56.9524 20.4894 56.9232 21.7334L56.9251 21.7316ZM51.8603 21.914C51.8603 21.3434 51.8603 21.0022 51.7381 20.5508C51.4737 19.5723 50.6861 18.7743 49.7709 18.5486C49.2294 18.3879 48.6733 18.3644 48.1045 18.4294C46.7626 18.5829 45.7362 19.2491 45.0105 20.3378C44.2083 21.5402 44.0224 22.8961 44.2648 24.299C44.4709 25.4852 45.1454 26.285 46.3652 26.5684C46.9686 26.7093 47.5794 26.7075 48.1865 26.6082C49.4591 26.3987 50.4309 25.7361 51.1073 24.6528C51.6305 23.8151 51.8293 22.8943 51.8584 21.9122L51.8603 21.914ZM113.411 25.7614C112.751 29.4662 109.218 31.0586 105.706 31.0424C103.041 31.0315 100.456 29.6269 99.5585 28.7585C100.441 27.8196 101.475 26.5594 102.569 25.366C103.32 25.9654 104.895 26.9927 106.326 26.9927C107.497 26.9927 108.293 26.3734 108.408 25.7289C108.724 23.9577 100.558 24.8912 101.549 19.3195C102.175 15.8097 105.482 14.0385 108.864 14.0385C111.077 14.0385 112.436 14.6091 114.381 16.0173C112.706 18.1153 112.098 18.8591 111.741 19.361C110.6 18.7544 109.296 18.0936 108.224 18.0936C107.378 18.0936 106.751 18.4384 106.58 19.1913C106.164 21.0094 114.47 19.8034 113.411 25.7614ZM123.712 26.6082C121.811 26.693 120.786 26.498 121.016 25.2053L122.071 19.1263H125.07L125.913 14.4881H122.897L123.699 9.97986L118.563 11.4296L118.018 14.4881H115.417L114.591 19.1263H117.192L116.177 24.8262C115.393 29.2333 116.857 31.1308 122.985 30.6127L123.712 26.6063V26.6082ZM82.0814 17.2468C82.003 15.9144 81.7259 14.6361 81.1698 13.4175C80.0303 10.9241 78.1506 9.22698 75.5599 8.29355C73.4997 7.55151 71.3757 7.47388 69.2316 7.77178C67.8095 7.97038 66.4531 8.41633 65.175 9.06449C62.803 10.2669 60.9124 11.9893 59.5632 14.2787C58.1703 16.642 57.6088 19.1841 57.8531 21.9067C57.988 23.4089 58.3964 24.8262 59.1585 26.1405C60.0318 27.6463 61.2515 28.8054 62.772 29.6504C64.5332 30.6271 66.4494 31.0045 68.7612 31.0333C69.2188 30.9954 69.9955 30.972 70.7558 30.8564C71.7713 30.7029 72.7485 30.4249 73.6911 30.0458L74.3402 30.8871H74.3529C75.3739 32.1473 77.2245 32.373 78.5153 31.3764C78.5207 31.371 78.5226 31.3655 78.5299 31.3601H78.5353L80.5171 29.8598L78.322 27.0198C79.2099 26.1297 79.9665 25.1096 80.5882 23.9577C81.7241 21.8616 82.2163 19.6264 82.0778 17.2486L82.0814 17.2468ZM74.6702 22.2877H74.6574C74.6465 22.2732 74.6465 22.257 74.6355 22.2444C73.62 20.9553 71.7421 20.7242 70.4404 21.728C70.4349 21.7316 70.4331 21.7388 70.4276 21.7424H70.4221L68.4385 23.2446L70.5735 26.0087C70.537 26.016 70.5005 26.025 70.4622 26.0322C69.1058 26.2796 67.7566 26.238 66.4676 25.6946C64.8085 24.9941 63.8131 23.7321 63.4193 22.0078C63.3008 21.4897 63.2132 21.0889 63.2132 20.4208C63.2461 18.545 63.8441 16.8803 65.0364 15.4468C66.289 13.941 67.877 12.939 69.8369 12.596C71.2207 12.354 72.5936 12.4046 73.8862 13.0239C75.4086 13.7533 76.3657 14.972 76.7267 16.5933C77.2573 18.9765 76.7632 21.1611 75.2773 23.0731L74.6702 22.2877Z" fill="white"/></g><defs><clipPath id="fq-logo-clip"><rect width="125.913" height="32" fill="white"/></clipPath></defs></svg>
+    </div>
+    <div class="hero-badge">2-Minute Assessment</div>
+    <h1>What's Your <em>AI Readiness</em> Score?</h1>
+    <p>AI is reshaping accounting faster than most teams can adapt. Take this assessment to find out exactly where your organisation stands — and what to do next.</p>
+    <button class="hero-cta" onclick="document.getElementById('quiz').scrollIntoView({behavior:'smooth'})">
+      Take the Assessment
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+</section>
+
+
+<!-- NARRATIVE -->
+<section class="narrative">
+  <h2 class="reveal">AI is the answer. But where do you start?</h2>
+  <p class="reveal">The accounting profession is facing its biggest structural shift in decades. A projected shortfall of <span class="num-inline">160,000+</span> CPA professionals by 2030 — with three-quarters of today's workforce set to retire within ten years — means finance teams will permanently be expected to do more with less.</p>
+  <p class="reveal">AI can close that gap. But readiness isn't about finding the right tool. It spans <span class="num-inline">8</span> distinct dimensions: vision, stakeholder buy-in, process clarity, automation fit, business case, vendor criteria, pilot design, and change management. Most organisations have seriously considered one or two.</p>
+  <p class="reveal">The result: <strong>roughly half of all AI implementations underdeliver</strong> — almost always because something earlier in that chain was skipped. This assessment surfaces exactly where the gaps are.</p>
+</section>
+
+<!-- QUIZ -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h2>What's Your AI Readiness Score?</h2>
+      <p>8 questions. No wrong answers. Just an honest snapshot.</p>
+    </div>
+
+    <!-- Quiz body -->
+    <div id="quiz-body">
+      <div class="progress-text"><span id="q-counter">1</span> of 8</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <!-- Questions inserted by JS -->
+      <div id="questions-container"></div>
+
+      <div class="quiz-nav">
+        <button class="btn-back hidden" id="btn-back" onclick="prevQuestion()">← Back</button>
+        <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-section" id="results-section">
+      <div class="score-display results-reveal" style="--delay:0.02s;">
+        <div class="score-arc-wrap">
+          <svg class="score-arc-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="score-arc-track" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+            <circle class="score-arc-fill" id="score-arc-fill" cx="60" cy="60" r="52" fill="none" stroke="rgba(200,159,214,0.6)" stroke-width="4" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="score-pct" id="score-pct">0%</div>
+        </div>
+        <div class="score-label">AI Readiness Score</div>
+        <div class="score-profile" id="score-profile">—</div>
+        <p class="score-intro" id="score-intro"></p>
+      </div>
+
+      <div class="dimensions-card results-reveal" style="--delay:0.10s;">
+        <div class="section-number">Your AI readiness</div>
+        <div class="breakdown-layout">
+          <div class="breakdown-visual">
+            <div class="breakdown-viz-card">
+              <div class="breakdown-viz-label">Readiness shape</div>
+              <div class="breakdown-radar-wrap">
+                <svg class="breakdown-radar" id="readiness-radar" viewBox="-80 -20 480 360" aria-label="Readiness radar chart"></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="breakdown-bars">
+            <div class="dim-row">
+              <div class="dim-tooltip">Every successful AI initiative starts with a clear vision — one that aligns your team and anchors your strategy.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6.5" stroke="#6B2D8B" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="#6B2D8B" stroke-width="1.5"/><line x1="8" y1="1.5" x2="8" y2="4" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="12" x2="8" y2="14.5" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/><line x1="1.5" y1="8" x2="4" y2="8" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="8" x2="14.5" y2="8" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                  <span>Strategic Readiness</span>
+                </div>
+                <span id="dim-strategic-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill strategic" id="dim-strategic"></div></div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-tooltip">Mapping your current processes is how you uncover where AI can have the biggest impact.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="5.5" stroke="#3498DB" stroke-width="1.5"/><path d="M8 2.5V5M8 11V13.5M2.5 8H5M11 8H13.5" stroke="#3498DB" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="1.5" fill="#3498DB"/></svg></span>
+                  <span>Operational Readiness</span>
+                </div>
+                <span id="dim-operational-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill operational" id="dim-operational"></div></div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-tooltip">A strategic pilot lets you validate AI's value before committing to full-scale change.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 1.5L5.5 8.5H9L7 14.5L12.5 6.5H9L11 1.5H9Z" stroke="#F39C12" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+                  <span>Execution Readiness</span>
+                </div>
+                <span id="dim-execution-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill execution" id="dim-execution"></div></div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-tooltip">AI isn't a one-and-done project — continuous improvement ensures it stays relevant as your business evolves.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.5C5 2.5 2.5 5 2.5 8S5 13.5 8 13.5 13.5 11 13.5 8" stroke="#2ECC71" stroke-width="1.5" stroke-linecap="round"/><path d="M11 2l2.5 2.5L11 7" stroke="#2ECC71" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span>Sustainability Readiness</span>
+                </div>
+                <span id="dim-sustainability-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill sustainability" id="dim-sustainability"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS GATE -->
+      <div id="results-gate">
+        <div class="gate-card" id="gate-card">
+          <div class="gate-layout">
+            <img id="gate-cover-img" class="gate-cover-img" src="" alt="AI Playbook for Accounting cover">
+            <div class="gate-form">
+              <p class="gate-headline">Unlock your full results + our AI Playbook for Accounting — free</p>
+              <div id="gate-email-form">
+                <div class="gate-form-grid">
+                  <div class="gate-field">
+                    <label for="gate-firstname">First name</label>
+                    <input type="text" id="gate-firstname" placeholder="Jane" autocomplete="given-name">
+                  </div>
+                  <div class="gate-field">
+                    <label for="gate-lastname">Last name</label>
+                    <input type="text" id="gate-lastname" placeholder="Smith" autocomplete="family-name">
+                  </div>
+                  <div class="gate-field">
+                    <label for="gate-email-input">Work email</label>
+                    <input type="email" id="gate-email-input" placeholder="jane@company.com" autocomplete="email">
+                  </div>
+                  <div class="gate-field">
+                    <label for="gate-company">Company</label>
+                    <input type="text" id="gate-company" placeholder="Acme Inc." autocomplete="organization">
+                  </div>
+                </div>
+                <button class="gate-submit-btn" onclick="handleGateSubmit()">Unlock My Results</button>
+                <div class="email-capture-note">No spam. Unsubscribe anytime.</div>
+              </div>
+              <div class="gate-success" id="gate-success">✓ Unlocking your results…</div>
+            </div>
+          </div>
+        </div>
+        <div id="gated-content" class="gated-content">
+
+      <div class="maturity-card results-reveal" style="--delay:0.18s;">
+        <div class="maturity-header">
+          <div>
+            <div class="maturity-eyebrow">02 — Your AI Maturity Level</div>
+            <div class="maturity-title" id="maturity-title">Level 1: Manual & Disconnected</div>
+          </div>
+          <div class="maturity-badge" id="maturity-badge">Level 1</div>
+        </div>
+
+        <p class="maturity-summary" id="maturity-summary"></p>
+
+        <div class="maturity-journey">
+          <div class="maturity-journey-head">
+            <span class="maturity-pane-label">Five-stage journey</span>
+          </div>
+          <div class="maturity-scale" id="maturity-scale"></div>
+        </div>
+
+      </div>
+
+      <div class="insight-pullout results-reveal" style="--delay:0.26s;">
+        <div class="insight-card emphasis" id="insight-gap"></div>
+        <div class="insight-card strength-card" id="insight-strength"></div>
+      </div>
+
+      <div class="insight-card results-reveal" id="insight-next-steps" style="--delay:0.36s;"></div>
+      <div class="insight-card playbook-card results-reveal" id="insight-playbook" style="--delay:0.46s;"></div>
+
+      <section class="floqademy-section results-reveal" id="floqademy-section" style="--delay:0.66s;">
+        <div class="floqademy-header">
+          <div class="floqademy-eyebrow">Continue learning</div>
+          <h3>Recommended for you on FloQademy</h3>
+          <p class="fq-subtext">CPE-accredited AI courses matched to your results.</p>
+        </div>
+        <div class="floqademy-cards" id="floqademy-cards"></div>
+        <a class="floqademy-browse-all" href="https://floqademy.floqast.com/page/library#featured-courses_ai-education" target="_blank" rel="noopener">
+          Browse all AI courses on FloQademy →
+        </a>
+      </section>
+
+        </div><!-- /gated-content -->
+      </div><!-- /results-gate -->
+
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE DOWNLOAD -->
+<section class="guide-section" id="guide">
+  <div class="guide-inner">
+    <div class="guide-card">
+      <img class="guide-cover" src="data:image/jpeg;base64,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" alt="AI Playbook for Accounting">
+      <div class="guide-card-body">
+        <div class="guide-eyebrow">Free Resource</div>
+        <h3>Get the full AI Playbook for Accounting</h3>
+        <p>A step-by-step framework across all 8 dimensions of AI readiness — from strategy to change management. Download it free.</p>
+        <a class="guide-download-btn" href="#" target="_blank" rel="noopener">Download Playbook</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+const questions = [
+  {
+    dimension: "AI Adoption",
+    text: "Where would you honestly place your organisation on the AI adoption curve?",
+    shuffle: false,
+    answers: [
+      { text: "Most accounting workflows are performed manually", pts: 1 },
+      { text: "Core workflows are supported by digital tools, but AI is limited or exploratory", pts: 1 },
+      { text: "Workflows are streamlined with AI, but decision-making remains primarily human-led", pts: 2 },
+      { text: "AI tools are embedded in select workflows, contributing to analysis, predictions, or recommendations", pts: 3 },
+      { text: "AI plays a central role in enabling a highly automated, continuously updated close process", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Stakeholder Buy-In",
+    text: "Who's driving AI conversations internally?",
+    answers: [
+      { text: "One person or a small team, exploring mostly on their own", pts: 1 },
+      { text: "Leadership is pushing for AI, but department heads haven't bought in yet", pts: 2 },
+      { text: "Finance and IT are aligned, but we’re still waiting on Audit or Legal", pts: 3 },
+      { text: "Cross-functional buy-in with active “AI Champions” in multiple departments", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Manual Workload",
+    text: "How much of your team’s time is still eaten up by manual accounting tasks?",
+    shuffle: false,
+    answers: [
+      { text: "75%–100% of time", pts: 1 },
+      { text: "60%–74% of time", pts: 1 },
+      { text: "45%–59% of time", pts: 2 },
+      { text: "35%–44% of time", pts: 3 },
+      { text: "10%–34% of time", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Automation Fit",
+    text: "How would you describe the processes you'd want to automate?",
+    answers: [
+      { text: "Complex, judgment-heavy, and different every time", pts: 1 },
+      { text: "Some patterns, but lots of exceptions and messy data", pts: 2 },
+      { text: "Mostly rule-based and predictable, but not yet standardised", pts: 3 },
+      { text: "Repetitive, rule-based, high-volume, clean data", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Business Case",
+    text: "Could you justify an AI investment to leadership today?",
+    answers: [
+      { text: "Not really — we don't have the numbers", pts: 1 },
+      { text: "We could make a qualitative argument for “better efficiency”", pts: 2 },
+      { text: "We could point to specific use cases with estimated ROI", pts: 3 },
+      { text: "We've built a data-backed case — (FTE savings, error reduction, faster close)", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Vendor Evaluation",
+    text: "How much have you thought about what you need from an AI vendor?",
+    answers: [
+      { text: "Haven't started — not sure what to look for", pts: 1 },
+      { text: "We know we need system integration, but that's about it", pts: 2 },
+      { text: "We have a mental shortlist of requirements but nothing formalised", pts: 3 },
+      { text: "We've defined criteria for scalability, auditability, security, training, and human oversight", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Pilot Approach",
+    text: "What's your rollout plan?",
+    answers: [
+      { text: "Go big, go fast", pts: 1 },
+      { text: "We want to start small but haven't planned anything specific", pts: 2 },
+      { text: "We've picked a pilot process but haven’t defined what “success” looks like", pts: 3 },
+      { text: "Structured pilot — defined processes, success metrics, clean data, and feedback loop", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Controls Maturity",
+    text: "How would you describe your approach to financial controls in the close process?",
+    shuffle: false,
+    answers: [
+      { text: "Controls are largely informal or handled manually, with limited documentation or consistency", pts: 1 },
+      { text: "Some controls are defined and applied, but execution and documentation vary across the close process", pts: 1 },
+      { text: "Controls are standardised, consistently executed, and well documented", pts: 2 },
+      { text: "Controls are actively monitored and improved based on performance and identified risks", pts: 3 },
+      { text: "Controls are continuously monitored and optimised using automation or AI", pts: 4 },
+    ]
+  },
+];
+
+let current = 0;
+let selected = new Array(questions.length).fill(null);
+let isTransitioning = false;
+let lockedQuestionHeight = 0;
+let autoAdvanceTimer = null;
+
+// Shuffle answers for each question (keep pts attached)
+const shuffledQuestions = questions.map(q => {
+  if (q.shuffle === false) return q;
+  const shuffled = [...q.answers];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return { ...q, answers: shuffled };
+});
+
+// === FLOQADEMY COURSE RECOMMENDATIONS ===
+const fqCourses = {
+  foundations: {
+    visual: 'fq-foundations',
+    tag: 'Foundational · CPE',
+    title: 'AI Foundations Badge',
+    url: 'https://floqademy.floqast.com/page/library#featured-courses_ai-education',
+  },
+  unleashed: {
+    visual: 'fq-unleashed',
+    tag: 'Strategic · CPE',
+    title: 'AI Unleashed: Transforming Accounting with AI',
+    url: 'https://floqademy.floqast.com/page/library#featured-courses_ai-education',
+  },
+  governance: {
+    visual: 'fq-governance',
+    tag: 'Governance · 1.0 CPE',
+    title: 'AI Governance and Policy Implementation',
+    url: 'https://floqademy.floqast.com/ai-policy',
+  },
+  matching: {
+    visual: 'fq-matching',
+    tag: 'Product · 0.5 CPE',
+    title: 'FloQast AI Matching Spotlight',
+    url: 'https://floqademy.floqast.com/floqast-ai-matching-spotlight',
+  },
+  agent: {
+    visual: 'fq-agent',
+    tag: 'Product Demo',
+    title: 'FloQast AI Agent: Demo in Detail',
+    url: 'https://floqademy.floqast.com/floqast-ai-agent-demo-in-detail',
+  },
+  transform: {
+    visual: 'fq-transform',
+    tag: 'Advanced · CPE',
+    title: 'Unlock Your Edge with FloQast Transform AI Agents',
+    url: 'https://floqademy.floqast.com/page/library#featured-courses_ai-education',
+  },
+};
+
+function getFloqademyRecs(answers) {
+  const strategic   = answers[0] + answers[1];
+  const operational = answers[2] + answers[3];
+  const execution   = answers[4] + answers[5];
+  const sustain     = answers[6] + answers[7];
+  const total       = answers.reduce((a, b) => a + b, 0);
+  const recs = [];
+
+  if (total <= 13) {
+    // Early Explorer — need the big picture first
+    recs.push(fqCourses.unleashed, fqCourses.foundations);
+  } else if (total <= 20) {
+    // Building Foundations
+    recs.push(fqCourses.unleashed);
+    recs.push(strategic <= 4 ? fqCourses.governance : fqCourses.foundations);
+  } else if (total <= 27) {
+    // Ready to Launch — getting practical
+    recs.push(fqCourses.matching, fqCourses.agent);
+  } else {
+    // Scaling with Confidence — go deep on tooling
+    recs.push(fqCourses.agent, fqCourses.transform);
+  }
+
+  // Dimension-specific additions (if not already in)
+  if (strategic <= 4 && !recs.includes(fqCourses.governance)) recs.push(fqCourses.governance);
+  if (execution <= 4 && !recs.includes(fqCourses.matching)) recs.push(fqCourses.matching);
+  if (sustain >= 6 && total >= 24 && !recs.includes(fqCourses.transform)) recs.push(fqCourses.transform);
+
+  // Deduplicate, cap at 3
+  return [...new Set(recs)].slice(0, 3);
+}
+
+function renderFloqademy(answers) {
+  const recs = getFloqademyRecs(answers);
+  const section = document.getElementById('floqademy-section');
+  const container = document.getElementById('floqademy-cards');
+  section.classList.add('active');
+  container.innerHTML = recs.map(c => `
+    <a class="fq-card" href="${c.url}" target="_blank" rel="noopener">
+      <div class="fq-card-icon ${c.visual}" aria-hidden="true"></div>
+      <div>
+        <div class="fq-card-tag">${c.tag}</div>
+        <div class="fq-card-title">${c.title}</div>
+      </div>
+      <div class="fq-card-arrow">→</div>
+    </a>
+  `).join('');
+}
+
+const maturityLevels = [
+  {
+    level: 1,
+    min: 8,
+    max: 12,
+    name: 'Manual & Disconnected',
+    capacity: 'Almost entirely operational; strategy is an afterthought.',
+    summary: 'AI interest is there, but the foundation is still early. Teams at this stage are usually exploring possibilities without a shared plan, a clear pilot path, or enough structure to scale confidently.',
+  },
+  {
+    level: 2,
+    min: 13,
+    max: 17,
+    name: 'Standardized & Connected',
+    capacity: 'Mostly operational, with some time for analysis.',
+    summary: 'You have enough alignment to move beyond experimentation. The next step is turning scattered signals into a consistent operating model with measurable priorities and clearer execution discipline.',
+  },
+  {
+    level: 3,
+    min: 18,
+    max: 22,
+    name: 'AI-Augmented Workflows',
+    capacity: 'Better balance between execution and analysis.',
+    summary: 'You are entering the zone where AI can support real accounting workflows. The opportunity now is to make pilots repeatable, measurable, and strong enough to earn broader adoption.',
+  },
+  {
+    level: 4,
+    min: 23,
+    max: 27,
+    name: 'Autonomous & Controlled',
+    capacity: 'Significant shift from preparers to reviewers.',
+    summary: 'You have the ingredients to scale beyond one-off pilots. Focus here is less about proving AI can work and more about expanding safely with governance, controls, and stronger change management.',
+  },
+  {
+    level: 5,
+    min: 28,
+    max: 32,
+    name: 'AI-Native Strategic Finance',
+    capacity: 'Proactive management and strategic business partnering.',
+    summary: 'AI is becoming part of how finance operates and creates capacity. The work at this level is about sustaining trust, strengthening oversight, and continuously improving where AI delivers the most leverage.',
+  },
+];
+
+const actionLibrary = {
+  0: {
+    label: 'Define your AI starting point',
+    text: 'Assess where AI is genuinely embedded versus where it exists only in conversation — this gap is the first thing to close before committing to any roadmap or investment.',
+  },
+  1: {
+    label: 'Cross-functional buy-in',
+    text: 'Build visible sponsorship across Finance, IT, Audit, Legal, and leadership so AI is not owned by one team alone.',
+  },
+  2: {
+    label: 'Reduce manual accounting time',
+    text: 'Identify the highest-volume manual tasks in your close process — reconciliations, journal entries, or transaction matching — and prioritise these for automation.',
+  },
+  3: {
+    label: 'Automation-fit assessment',
+    text: 'Identify one repetitive, rules-based workflow with data clean enough to support a realistic automation pilot.',
+  },
+  4: {
+    label: 'Business case',
+    text: 'Build a simple ROI case using hours saved, error reduction, faster close, or redeployed team capacity.',
+  },
+  5: {
+    label: 'Vendor criteria',
+    text: 'Document the vendor criteria that matter most: integration, auditability, security, training, and human oversight.',
+  },
+  6: {
+    label: 'Pilot design',
+    text: 'Choose one pilot process and define success metrics, clean inputs, owners, and a clear feedback loop before rollout.',
+  },
+  7: {
+    label: 'Strengthen financial controls',
+    text: 'Formalise and document controls across the close process before scaling AI — poorly defined controls are the most common reason AI implementations fail audit scrutiny.',
+  },
+};
+
+const dimensionOrder = ['strategic', 'operational', 'execution', 'sustainability'];
+
+const dimensionGroups = {
+  strategic: {
+    label: 'Strategic Readiness',
+    shortLabel: 'Strategic',
+    questionIndexes: [0, 1],
+    strength: "Your organisation is further along the AI adoption curve than most, and you have the cross-functional alignment to keep moving. That combination — real adoption progress plus stakeholder buy-in — is rare and valuable.",
+    gapLead: 'Your answers flagged your biggest gap in Strategic Readiness.',
+    meaning: 'Low Strategic Readiness means AI is still in exploratory territory, without the organisational alignment needed to move beyond it.',
+    consequence: "Without a shared view of where you are on the adoption curve and who owns the agenda, most AI initiatives stay in conversation and never reach execution.",
+    nextMove: 'The teams that progress fastest start by being honest about their current adoption level, then build the cross-functional support to move to the next stage.',
+    steps: [
+      { step: 'Step 01', title: 'Define the Vision for AI in Accounting', page: 3 },
+      { step: 'Step 04', title: 'Build the Business Case', page: 8 },
+    ],
+  },
+  operational: {
+    label: 'Operational Readiness',
+    shortLabel: 'Operational',
+    questionIndexes: [2, 3],
+    strength: 'You have a clear picture of where manual time is going and which processes are genuinely suited for automation. That combination is the foundation of a well-scoped pilot.',
+    gapLead: 'Your answers flagged your biggest gap in Operational Readiness.',
+    meaning: "Low Operational Readiness means a significant share of your team's time is still consumed by manual work, and the path to reducing it hasn't been mapped.",
+    consequence: "Trying to automate without understanding your manual workload or automation fit means you're likely to pick the wrong process first — and a mis-scoped pilot is worse than no pilot at all.",
+    nextMove: 'Before choosing a tool, quantify where manual time is concentrated and pressure-test whether those processes are actually ready to automate.',
+    steps: [
+      { step: 'Step 02', title: 'Map Your Current-State Processes', page: 4 },
+      { step: 'Step 03', title: 'Conduct an AI Fit Assessment', page: 5 },
+    ],
+  },
+  execution: {
+    label: 'Execution Readiness',
+    shortLabel: 'Execution',
+    questionIndexes: [4, 5],
+    strength: "You're stronger than most on turning interest into investment logic. A credible business case and clearer vendor thinking make it much easier to move from concept to approval.",
+    gapLead: 'Your answers flagged your biggest gap in Execution Readiness.',
+    meaning: 'Low Execution Readiness is the most common gap in teams that have already done the strategic thinking.',
+    consequence: "You may know where AI fits and how to talk about it internally, but without clear vendor criteria and a focused plan, even good strategy gets stuck in evaluation limbo.",
+    nextMove: 'The next unlock is turning interest into a tightly scoped, measurable buying and pilot motion.',
+    steps: [
+      { step: 'Step 05', title: 'Evaluate AI Providers', page: 9 },
+      { step: 'Step 06', title: 'Develop a Strategic Pilot Plan', page: 11 },
+    ],
+  },
+  sustainability: {
+    label: 'Sustainability Readiness',
+    shortLabel: 'Sustainability',
+    questionIndexes: [6, 7],
+    strength: "You're thinking about how AI implementation will hold up over time — structured pilots, strong controls, and clear documentation. That's what separates teams that scale from those that get stuck.",
+    gapLead: 'Your answers flagged your biggest gap in Sustainability Readiness.',
+    meaning: 'Low Sustainability Readiness means you could build something promising and still lose it to poor controls, audit friction, or a rollout that was never designed to stick.',
+    consequence: "AI that runs without formal controls or a structured rollout plan creates compliance risk and erodes trust — both of which are very hard to recover from.",
+    nextMove: 'Formalise your financial controls and define how AI outputs will be reviewed and documented before you scale anything beyond a pilot.',
+    steps: [
+      { step: 'Step 07', title: 'Operationalize Sustainable Change', page: 12 },
+      { step: 'Step 08', title: 'Measure Success', page: 14 },
+    ],
+  },
+};
+
+function getMaturityLevel(total) {
+  return maturityLevels.find(level => total >= level.min && total <= level.max) || maturityLevels[0];
+}
+
+function getPriorityActions(answers, count = 3) {
+  return answers
+    .map((score, index) => ({ score, index, action: actionLibrary[index] }))
+    .sort((a, b) => a.score - b.score || a.index - b.index)
+    .slice(0, count);
+}
+
+function formatList(items) {
+  if (items.length <= 1) return items[0] || '';
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
+function getDimensionScores(answers) {
+  return dimensionOrder.map((key) => {
+    const meta = dimensionGroups[key];
+    const score = meta.questionIndexes.reduce((sum, index) => sum + answers[index], 0);
+    return {
+      key,
+      score,
+      percentage: Math.round((score - 2) / 6 * 100),
+      meta,
+    };
+  });
+}
+
+function getStrongestDimension(dimensionScores) {
+  return dimensionScores.reduce((best, current) => current.score >= best.score ? current : best, dimensionScores[0]);
+}
+
+function getWeakestDimension(dimensionScores) {
+  return dimensionScores.reduce((best, current) => current.score < best.score ? current : best, dimensionScores[0]);
+}
+
+function getScoreIntro(profile, weakestDimension) {
+  const weakest = weakestDimension.meta.shortLabel.toLowerCase();
+  const intros = {
+    'Early Explorer': `You have genuine AI intent, but the fastest way to create momentum now is to strengthen your ${weakest} foundation before tools start competing for attention.`,
+    'Building Foundations': `You are moving beyond curiosity. Tightening ${weakest} is what will help convert interest into a pilot that leadership can actually support.`,
+    'Ready to Launch': `You are closer to action than most teams. The biggest unlock from here is shoring up ${weakest} so execution does not stall.`,
+    'Scaling with Confidence': `You already have real momentum. The highest-leverage move now is making sure ${weakest} keeps pace with how quickly your AI ambition is growing.`,
+  };
+  return intros[profile] || intros['Building Foundations'];
+}
+
+function polarPoint(angleDeg, radius, center = 160) {
+  const angle = (angleDeg - 90) * Math.PI / 180;
+  return {
+    x: center + Math.cos(angle) * radius,
+    y: center + Math.sin(angle) * radius,
+  };
+}
+
+function polygonPoints(radius, angles) {
+  return angles.map(angle => {
+    const point = polarPoint(angle, radius);
+    return `${point.x},${point.y}`;
+  }).join(' ');
+}
+
+function renderRadarChart(dimensionScores) {
+  const svg = document.getElementById('readiness-radar');
+  if (!svg) return;
+
+  const angles = [0, 90, 180, 270];
+  const labels = [
+    { text: 'Strategic', angle: 0 },
+    { text: 'Operational', angle: 90 },
+    { text: 'Execution', angle: 180 },
+    { text: 'Sustainability', angle: 270 },
+  ];
+  const maxR = 126;
+  const rings = [42, 84, maxR];
+  const dataPoints = dimensionScores.map((dimension, index) => {
+    const point = polarPoint(angles[index], (dimension.percentage / 100) * maxR);
+    return `${point.x},${point.y}`;
+  }).join(' ');
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="radarFill" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(107,45,139,0.34)"></stop>
+        <stop offset="100%" stop-color="rgba(88,160,255,0.22)"></stop>
+      </linearGradient>
+    </defs>
+    ${rings.map(radius => `<polygon points="${polygonPoints(radius, angles)}" fill="none" stroke="rgba(107,45,139,0.12)" stroke-width="1"></polygon>`).join('')}
+    ${angles.map(angle => {
+      const outer = polarPoint(angle, maxR);
+      return `<line x1="160" y1="160" x2="${outer.x}" y2="${outer.y}" stroke="rgba(107,45,139,0.12)" stroke-width="1"></line>`;
+    }).join('')}
+    <polygon points="${dataPoints}" fill="url(#radarFill)" stroke="rgba(61,25,82,0.9)" stroke-width="2"></polygon>
+    ${dimensionScores.map((dimension, index) => {
+      const point = polarPoint(angles[index], (dimension.percentage / 100) * maxR);
+      return `<circle cx="${point.x}" cy="${point.y}" r="4.5" fill="${['#6B2D8B', '#58A0FF', '#F0B44D', '#35BD88'][index]}" stroke="#fff" stroke-width="2"></circle>`;
+    }).join('')}
+    ${labels.map((label) => {
+      const labelPoint = polarPoint(label.angle, 153);
+      const anchor = label.angle === 270 ? 'end' : label.angle === 90 ? 'start' : 'middle';
+      const dy = label.angle === 0 ? -8 : label.angle === 180 ? 20 : 5;
+      return `<text x="${labelPoint.x}" y="${labelPoint.y + dy}" text-anchor="${anchor}" font-size="13" font-weight="700" fill="#5A4665">${label.text}</text>`;
+    }).join('')}
+  `;
+  setTimeout(() => {
+    const radar = document.getElementById('readiness-radar');
+    if (radar) {
+      radar.classList.add('glow-active');
+    }
+  }, 800);
+}
+
+function getMaturityProgress(total) {
+  const currentLevel = getMaturityLevel(total);
+  const nextLevel = maturityLevels.find(level => level.level === currentLevel.level + 1) || null;
+  const pointsToNext = nextLevel ? nextLevel.min - total : 0;
+
+  return { currentLevel, nextLevel, pointsToNext };
+}
+
+function renderMaturity(total, answers) {
+  const { currentLevel, nextLevel, pointsToNext } = getMaturityProgress(total);
+  const topActions = getPriorityActions(answers);
+  const focusAreas = formatList(topActions.map(item => item.action.label.toLowerCase()));
+
+  document.getElementById('maturity-title').textContent = `Level ${currentLevel.level}: ${currentLevel.name}`;
+  document.getElementById('maturity-badge').textContent = `Level ${currentLevel.level}`;
+  document.getElementById('maturity-summary').textContent = currentLevel.summary;
+
+  document.getElementById('maturity-scale').innerHTML = maturityLevels.map(level => `
+    <div class="maturity-step ${level.level < currentLevel.level ? 'completed' : ''} ${level.level === currentLevel.level ? 'active' : ''}">
+      <span class="maturity-step-level">Level ${level.level}</span>
+      <span class="maturity-step-title">${level.name}</span>
+      <span class="maturity-step-copy">${level.capacity}</span>
+    </div>
+  `).join('');
+
+  return { currentLevel, nextLevel, pointsToNext };
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  shuffledQuestions.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'question-card' + (qi === 0 ? ' active' : '');
+    card.id = 'q-' + qi;
+    card.innerHTML = `
+      <div class="q-dimension">${q.dimension}</div>
+      <div class="q-text">${q.text}</div>
+      ${q.answers.map((a, ai) => `
+        <button class="answer-option" data-qi="${qi}" data-ai="${ai}" data-pts="${a.pts}" onclick="selectAnswer(${qi},${ai},${a.pts})">${a.text}</button>
+      `).join('')}
+    `;
+    container.appendChild(card);
+  });
+  requestAnimationFrame(() => lockQuestionContainerHeight(true));
+  updateProgress();
+}
+
+function lockQuestionContainerHeight(forceRecalc = false) {
+  const container = document.getElementById('questions-container');
+  if (!container) return;
+  if (forceRecalc) lockedQuestionHeight = 0;
+  if (!lockedQuestionHeight) {
+    const cards = Array.from(container.querySelectorAll('.question-card'));
+    lockedQuestionHeight = Math.max(...cards.map(card => card.scrollHeight), 0);
+  }
+  if (lockedQuestionHeight) {
+    container.style.height = lockedQuestionHeight + 'px';
+  }
+}
+
+function transitionToQuestion(nextIndex) {
+  if (isTransitioning || nextIndex === current) return;
+  const outgoing = document.getElementById('q-' + current);
+  const incoming = document.getElementById('q-' + nextIndex);
+  if (!outgoing || !incoming) return;
+
+  isTransitioning = true;
+  incoming.classList.add('active');
+  outgoing.classList.add('exiting');
+
+  current = nextIndex;
+
+  document.getElementById('btn-next').classList.toggle('enabled', selected[current] !== null);
+  document.getElementById('btn-back').classList.toggle('hidden', current === 0);
+  document.getElementById('btn-next').textContent = current === questions.length - 1 ? 'See Results →' : 'Next →';
+  updateProgress();
+
+  setTimeout(() => {
+    outgoing.classList.remove('active', 'exiting');
+    isTransitioning = false;
+  }, 380);
+}
+
+function selectAnswer(qi, ai, pts) {
+  if (isTransitioning || qi !== current) return;
+  selected[qi] = pts;
+  document.querySelectorAll(`[data-qi="${qi}"]`).forEach(btn => btn.classList.remove('selected'));
+  const chosen = document.querySelector(`[data-qi="${qi}"][data-ai="${ai}"]`);
+  chosen.classList.add('selected');
+  document.getElementById('btn-next').classList.add('enabled');
+  if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+  autoAdvanceTimer = setTimeout(() => {
+    if (qi === current && selected[current] !== null) nextQuestion();
+  }, 260);
+}
+
+function nextQuestion() {
+  if (autoAdvanceTimer) {
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+  if (isTransitioning) return;
+  if (selected[current] === null) return;
+  if (current < questions.length - 1) {
+    transitionToQuestion(current + 1);
+  } else {
+    showResults();
+  }
+}
+
+function prevQuestion() {
+  if (autoAdvanceTimer) {
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+  if (isTransitioning) return;
+  if (current > 0) {
+    transitionToQuestion(current - 1);
+  }
+}
+
+function updateProgress() {
+  document.getElementById('q-counter').textContent = current + 1;
+  document.getElementById('progress-fill').style.width = ((current + 1) / questions.length * 100) + '%';
+}
+
+const HUBSPOT_PORTAL_ID = '5554356';
+const HUBSPOT_FORM_GUID  = 'c7b34d7e-c0fe-4478-9ff5-aefe38a2b6ef';
+
+// Populated by showResults() so quiz data is available when the gate form submits
+let quizResults = {};
+
+function submitToHubSpot(data) {
+  if (HUBSPOT_PORTAL_ID === 'YOUR_PORTAL_ID') return;
+  const quizFields = [
+    { objectTypeId: '0-1', name: 'ai_readiness_score',          value: String(quizResults.score               ?? '') },
+    { objectTypeId: '0-1', name: 'ai_maturity_level',           value: quizResults.maturityLevel              ?? '' },
+    { objectTypeId: '0-1', name: 'ai_biggest_gap',              value: quizResults.biggestGap                 ?? '' },
+    { objectTypeId: '0-1', name: 'ai_strongest_asset',          value: quizResults.strongestAsset             ?? '' },
+    { objectTypeId: '0-1', name: 'ai_next_step_1',              value: quizResults.nextStep1                  ?? '' },
+    { objectTypeId: '0-1', name: 'ai_next_step_2',              value: quizResults.nextStep2                  ?? '' },
+    { objectTypeId: '0-1', name: 'ai_next_step_3',              value: quizResults.nextStep3                  ?? '' },
+    { objectTypeId: '0-1', name: 'ai_playbook_snippet_1',       value: quizResults.playbookSnippet1           ?? '' },
+    { objectTypeId: '0-1', name: 'ai_playbook_snippet_2',       value: quizResults.playbookSnippet2           ?? '' },
+    { objectTypeId: '0-1', name: 'ai_strategic_readiness',      value: String(quizResults.strategicScore      ?? '') },
+    { objectTypeId: '0-1', name: 'ai_operational_readiness',    value: String(quizResults.operationalScore    ?? '') },
+    { objectTypeId: '0-1', name: 'ai_execution_readiness',      value: String(quizResults.executionScore      ?? '') },
+    { objectTypeId: '0-1', name: 'ai_sustainability_readiness', value: String(quizResults.sustainabilityScore ?? '') },
+  ];
+  fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: [
+        { objectTypeId: '0-1', name: 'firstname', value: data.firstname },
+        { objectTypeId: '0-1', name: 'lastname',  value: data.lastname  },
+        { objectTypeId: '0-1', name: 'email',     value: data.email     },
+        { objectTypeId: '0-1', name: 'company',   value: data.company   },
+        ...quizFields,
+      ],
+      context: { pageUri: window.location.href, pageName: document.title },
+    }),
+  }).catch(() => {});
+}
+
+function handleGateSubmit() {
+  const fieldDefs = [
+    { id: 'gate-firstname',   key: 'firstname' },
+    { id: 'gate-lastname',    key: 'lastname'  },
+    { id: 'gate-email-input', key: 'email',    isEmail: true },
+    { id: 'gate-company',     key: 'company'   },
+  ];
+  const values = {};
+  let firstInvalid = null;
+  fieldDefs.forEach(({ id, key, isEmail }) => {
+    const el = document.getElementById(id);
+    const val = el.value.trim();
+    const ok = val && (!isEmail || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+    el.classList.toggle('error', !ok);
+    if (!ok && !firstInvalid) firstInvalid = el;
+    values[key] = val;
+  });
+  if (firstInvalid) { firstInvalid.focus(); return; }
+  submitToHubSpot(values);
+  document.getElementById('gate-email-form').style.display = 'none';
+  document.getElementById('gate-success').style.display = 'block';
+  setTimeout(() => {
+    const gateCard = document.getElementById('gate-card');
+    const gatedContent = document.getElementById('gated-content');
+    gateCard.style.transition = 'opacity 0.4s ease';
+    gateCard.style.opacity = '0';
+    gatedContent.classList.add('unlocked');
+    setTimeout(() => {
+      gateCard.style.display = 'none';
+      const maturityCard = document.querySelector('.maturity-card');
+      if (maturityCard) maturityCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 450);
+  }, 900);
+}
+
+function handleEmailSubmit() {
+  // Guide section download button replaced — kept for backwards compatibility
+}
+
+function showResults() {
+  if (autoAdvanceTimer) {
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+  document.getElementById('quiz-body').style.display = 'none';
+  const results = document.getElementById('results-section');
+  results.classList.add('active');
+
+  // Populate gate cover image from guide section
+  const gateCoverImg = document.getElementById('gate-cover-img');
+  const guideCover = document.querySelector('.guide-cover');
+  if (gateCoverImg && guideCover) gateCoverImg.src = guideCover.src;
+
+  const total = selected.reduce((a, b) => a + b, 0);
+  const pct = Math.round((total - 8) / 24 * 100);
+
+  // Profile
+  let profile = '';
+  if (total <= 13) profile = 'Early Explorer';
+  else if (total <= 20) profile = 'Building Foundations';
+  else if (total <= 27) profile = 'Ready to Launch';
+  else profile = 'Scaling with Confidence';
+
+  document.getElementById('score-profile').textContent = profile;
+  renderMaturity(total, selected);
+
+  // Animate the percentage counting up
+  const pctEl = document.getElementById('score-pct');
+  const countStart = performance.now();
+  const countDuration = 1200;
+  const countStep = (now) => {
+    const progress = Math.min((now - countStart) / countDuration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    pctEl.textContent = Math.round(eased * pct) + '%';
+    if (progress < 1) requestAnimationFrame(countStep);
+  };
+  requestAnimationFrame(countStep);
+
+  // Animate score arc
+  const arcFill = document.getElementById('score-arc-fill');
+  if (arcFill) {
+    const circumference = 326.7;
+    const offset = circumference - (pct / 100) * circumference;
+    setTimeout(() => {
+      arcFill.style.strokeDashoffset = offset;
+    }, 200);
+  }
+
+  // Dimensions
+  const dimensionScores = getDimensionScores(selected);
+  const strongestDimension = getStrongestDimension(dimensionScores);
+  const weakestDimension = getWeakestDimension(dimensionScores);
+  document.getElementById('score-intro').textContent = getScoreIntro(profile, weakestDimension);
+  renderRadarChart(dimensionScores);
+
+  const dims = {
+    strategic: { score: dimensionScores.find(d => d.key === 'strategic').score, el: 'dim-strategic', pctEl: 'dim-strategic-pct' },
+    operational: { score: dimensionScores.find(d => d.key === 'operational').score, el: 'dim-operational', pctEl: 'dim-operational-pct' },
+    execution: { score: dimensionScores.find(d => d.key === 'execution').score, el: 'dim-execution', pctEl: 'dim-execution-pct' },
+    sustainability: { score: dimensionScores.find(d => d.key === 'sustainability').score, el: 'dim-sustainability', pctEl: 'dim-sustainability-pct' },
+  };
+
+  setTimeout(() => {
+    Object.values(dims).forEach(d => {
+      const p = Math.round((d.score - 2) / 6 * 100);
+      document.getElementById(d.el).style.width = p + '%';
+      document.getElementById(d.pctEl).textContent = p + '%';
+    });
+  }, 200);
+
+  document.getElementById('insight-strength').innerHTML = [
+    '<div class="insight-kicker">Strongest Asset</div>',
+    `<div class="insight-big-title">${strongestDimension.meta.label}</div>`,
+    `<p style="margin-top:12px;">${strongestDimension.meta.strength}</p>`,
+    '<div class="contrast-row" style="margin-top:auto;padding-top:16px;">',
+    `<div class="contrast-name"><span>Readiness score</span><strong>${strongestDimension.percentage}%</strong></div>`,
+    '<div class="contrast-track"><div class="contrast-fill strength" id="insight-strength-bar"></div></div>',
+    '</div>',
+  ].join('');
+
+  document.getElementById('insight-gap').innerHTML = [
+    '<div class="insight-kicker">Biggest Gap</div>',
+    `<div class="insight-big-title">${weakestDimension.meta.label}</div>`,
+    `<p style="margin-top:12px;">${weakestDimension.meta.gapLead} ${weakestDimension.meta.meaning}</p>`,
+    '<div class="contrast-row" style="margin-top:auto;padding-top:16px;">',
+    `<div class="contrast-name"><span>Readiness score</span><strong>${weakestDimension.percentage}%</strong></div>`,
+    '<div class="contrast-track"><div class="contrast-fill gap" id="insight-gap-bar"></div></div>',
+    '</div>',
+  ].join('');
+
+  setTimeout(() => {
+    const gapBar = document.getElementById('insight-gap-bar');
+    const strengthBar = document.getElementById('insight-strength-bar');
+    if (gapBar) gapBar.style.width = weakestDimension.percentage + '%';
+    if (strengthBar) strengthBar.style.width = strongestDimension.percentage + '%';
+  }, 260);
+
+
+  const playbookSnippets = {
+    strategic: 'Every successful AI initiative starts with a clear vision. Setting ambitious yet measurable goals ensures your efforts make sense strategically and earn cross-functional support.',
+    operational: 'Before you can improve how your team works, you need to understand where it is today. Mapping current processes helps uncover inefficiencies and identify where AI can have the biggest impact.',
+    execution: 'Choosing the right AI partner is critical. Look for scalability, seamless integration with your existing systems, ease of use for non-technical teams, and strong vendor support.',
+    sustainability: "AI isn't a one-and-done project — it's a continuous journey. A phased rollout, ongoing team training, and a commitment to iterative improvement are what turn a pilot into lasting change.",
+  };
+  const playbookSnippet = playbookSnippets[weakestDimension.key] || '';
+  document.getElementById('insight-playbook').innerHTML = `
+    <div class="section-number">04 — Start Here In The Playbook</div>
+    <p>We already know where to point you next. These are the two sections most aligned to the gap your answers surfaced.</p>
+    <div class="playbook-layout">
+      <div class="playbook-cover-col">
+        <img class="playbook-cover-preview" src="${document.querySelector('.guide-cover')?.src || ''}" alt="AI Playbook for Accounting cover">
+        <a class="playbook-read-btn" href="#guide">Read Now</a>
+      </div>
+      <div class="playbook-content">
+        <div class="playbook-steps">
+          ${weakestDimension.meta.steps.map((item) => `
+            <div class="playbook-step">
+              <span class="playbook-step-badge">${item.step}</span>
+              <span class="playbook-step-title">${item.title}</span>
+              <span class="playbook-step-snippet">${playbookSnippet}</span>
+              <span class="playbook-step-page">Page ${item.page}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      </div>
+    </div>
+  `;
+
+  const nextSteps = getPriorityActions(selected);
+
+  // Store computed results so the gate form can include them in the HubSpot submission
+  quizResults = {
+    score:               pct,
+    maturityLevel:       profile,
+    biggestGap:          weakestDimension.meta.label,
+    strongestAsset:      strongestDimension.meta.label,
+    nextStep1:           nextSteps[0] ? nextSteps[0].action.label : '',
+    nextStep2:           nextSteps[1] ? nextSteps[1].action.label : '',
+    nextStep3:           nextSteps[2] ? nextSteps[2].action.label : '',
+    playbookSnippet1:    weakestDimension.meta.steps[0] ? `Page ${weakestDimension.meta.steps[0].page}: ${weakestDimension.meta.steps[0].title}\n${playbookSnippet}` : '',
+    playbookSnippet2:    weakestDimension.meta.steps[1] ? `Page ${weakestDimension.meta.steps[1].page}: ${weakestDimension.meta.steps[1].title}\n${playbookSnippet}` : '',
+    strategicScore:      Math.round((dims.strategic.score     - 2) / 6 * 100),
+    operationalScore:    Math.round((dims.operational.score   - 2) / 6 * 100),
+    executionScore:      Math.round((dims.execution.score     - 2) / 6 * 100),
+    sustainabilityScore: Math.round((dims.sustainability.score - 2) / 6 * 100),
+  };
+
+  document.getElementById('insight-next-steps').innerHTML = `
+    <div class="section-number">03 — Your next 3 moves</div>
+    <div class="action-cards">
+      ${nextSteps.map((item, index) => `
+        <div class="action-card">
+          <div class="action-card-top">
+            <span class="action-card-num">${index + 1}</span>
+            <div class="action-card-title">${item.action.label}</div>
+          </div>
+          <p>${item.action.text}</p>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderFloqademy(selected);
+}
+
+// === SCROLL ANIMATIONS ===
+
+
+// Intersection Observer for narrative reveals
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+
+document.querySelectorAll('.narrative .reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.08}s`;
+  revealObserver.observe(el);
+});
+
+// Quiz header reveal
+const quizHeader = document.querySelector('.quiz-header');
+if (quizHeader) revealObserver.observe(quizHeader);
+
+window.addEventListener('resize', () => {
+  lockedQuestionHeight = 0;
+  lockQuestionContainerHeight(true);
+});
+
+renderQuestions();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Static File Server",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-p", "7373", "/Users/rhys/Desktop/FloQast quiz - claude"],
+      "port": 7373
+    }
+  ]
+}

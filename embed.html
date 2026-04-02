@@ -1,0 +1,2969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Assessment | FloQast</title>
+<style>
+  /* === BRAND FONTS === */
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Semibold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath'; src: url('fonts/PolymathDemo-Italic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Light.otf') format('opentype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Regular.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Semibold.otf') format('opentype'); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Bold.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Polymath Text'; src: url('fonts/PolymathTextDemo-Italic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'IBM Plex Mono'; src: url('fonts/IBMPlexMono-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Outfit'; src: url('fonts/Outfit-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+
+  :root {
+    --plum: #3D1952;
+    --purple: #6B2D8B;
+    --violet: #9B59B6;
+    --lavender: #C89FD6;
+    --pale: #F3E8F9;
+    --cream: #FDF8F4;
+    --mint: #2ECC71;
+    --amber: #F39C12;
+    --coral: #E74C3C;
+    --sky: #3498DB;
+    --slate: #2C3E50;
+    --text: #1a1a2e;
+    --text-light: #5a5a7a;
+    --white: #ffffff;
+    --radius: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === ANIMATIONS === */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes heroFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(1.08); }
+  }
+  @keyframes gentlePulse2 {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.05); }
+  }
+  @keyframes bounceArrow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+  @keyframes scrollReveal {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes statCountPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    60% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  @keyframes lineGrow {
+    from { width: 0; }
+    to { width: 48px; }
+  }
+
+  /* === HERO === */
+  .hero {
+    background: var(--plum);
+    position: relative;
+    overflow: hidden;
+    padding: 80px 24px 100px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(155,89,182,0.25) 0%, transparent 70%);
+    pointer-events: none;
+    animation: gentlePulse 6s ease-in-out infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(107,45,139,0.3) 0%, transparent 70%);
+    pointer-events: none;
+    animation: gentlePulse2 8s ease-in-out infinite 1s;
+  }
+  .hero-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-logo {
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: heroFadeIn 0.6s ease forwards;
+    animation-delay: 0s;
+  }
+  .hero-logo svg {
+    height: 32px;
+    width: auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    border: 1px solid rgba(200,159,214,0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 32px;
+    font-weight: 500;
+    opacity: 0;
+    animation: heroFadeUp 0.7s ease forwards;
+    animation-delay: 0.1s;
+  }
+  .hero h1 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    font-weight: 500;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards;
+    animation-delay: 0.3s;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(
+      90deg,
+      var(--lavender) 0%,
+      #e8d0f0 25%,
+      var(--white) 50%,
+      #e8d0f0 75%,
+      var(--lavender) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    animation-delay: 1.2s;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards;
+    animation-delay: 0.55s;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--white);
+    color: var(--plum);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: none;
+    opacity: 0;
+    animation: heroFadeUp 0.8s ease forwards;
+    animation-delay: 0.8s;
+  }
+  .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .hero-cta svg {
+    width: 18px;
+    height: 18px;
+    animation: bounceArrow 1.8s ease-in-out infinite;
+    animation-delay: 1.8s;
+  }
+
+  /* === NARRATIVE === */
+  .narrative {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 80px 24px 72px;
+  }
+  .narrative h2 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 2.1rem;
+    font-weight: 500;
+    margin-bottom: 28px;
+    color: var(--plum);
+    line-height: 1.25;
+  }
+  .narrative p {
+    font-size: 1.06rem;
+    line-height: 1.85;
+    color: var(--text-light);
+    margin-bottom: 0;
+  }
+  .narrative p + p {
+    margin-top: 22px;
+  }
+  .narrative p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  /* Scroll reveal for narrative children */
+  .narrative .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .narrative .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === QUIZ SECTION === */
+  .quiz-section {
+    background: var(--white);
+    padding: 72px 24px 80px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  .quiz-container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .quiz-header.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .quiz-header h2 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 8px;
+  }
+  .quiz-header p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+  }
+
+  /* Progress */
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(107,45,139,0.1);
+    border-radius: 4px;
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--purple), var(--violet));
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-text {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+    text-align: right;
+  }
+
+  /* Question card */
+  #questions-container {
+    position: relative;
+  }
+  .question-card {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.36s ease;
+  }
+  .question-card.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .question-card.exiting {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
+  }
+
+  .q-dimension {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .q-text {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--plum);
+    line-height: 1.4;
+    margin-bottom: 28px;
+  }
+
+  .answer-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border: 1.5px solid rgba(107,45,139,0.15);
+    border-radius: 10px;
+    background: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.5;
+  }
+  .answer-option:hover {
+    border-color: var(--violet);
+    background: var(--pale);
+  }
+  .answer-option.selected {
+    border-color: var(--purple);
+    background: var(--pale);
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(107,45,139,0.1);
+    transition: border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+  }
+
+  /* Nav buttons */
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+  }
+  .btn-back {
+    background: none;
+    border: none;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 10px 0;
+    transition: color 0.2s;
+  }
+  .btn-back:hover { color: var(--purple); }
+  .btn-back.hidden { visibility: hidden; }
+
+  .btn-next {
+    background: var(--plum);
+    color: var(--white);
+    border: none;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 12px 28px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .btn-next.enabled {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .btn-next.enabled:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(107,45,139,0.3);
+  }
+
+  /* === RESULTS === */
+  .results-section {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .results-section.active {
+    display: grid;
+    gap: 40px;
+    width: calc(100% + 80px);
+    margin-left: -40px;
+  }
+
+  .score-display {
+    text-align: center;
+    padding: 72px 44px 64px;
+    background: linear-gradient(135deg, var(--plum) 0%, #52247a 100%);
+    border-radius: 22px;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(61,25,82,0.16);
+  }
+  .score-display::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+  }
+  .score-display::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+  }
+  .score-pct {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    position: relative;
+  }
+  .score-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    margin-top: 8px;
+    margin-bottom: 12px;
+  }
+  .score-profile {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.75rem;
+    color: var(--white);
+    font-weight: 500;
+  }
+  .score-intro {
+    max-width: 620px;
+    margin: 14px auto 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.82);
+    position: relative;
+  }
+  .score-arc-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 160px;
+    margin: 0 auto 8px;
+  }
+  .score-arc-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .score-arc-wrap .score-pct {
+    position: relative;
+    z-index: 1;
+  }
+  .score-arc-fill {
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .results-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .results-section.active .results-reveal {
+    animation: resultReveal 0.72s cubic-bezier(.18,.8,.28,1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes resultReveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .section-number {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--violet);
+    margin-bottom: 6px;
+  }
+
+  .maturity-card {
+    background: linear-gradient(160deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 0;
+    box-shadow: 0 12px 34px rgba(61,25,82,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .maturity-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.09);
+  }
+  .maturity-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .maturity-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .maturity-title {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.55rem;
+    line-height: 1.25;
+    color: var(--plum);
+  }
+  .maturity-badge {
+    flex-shrink: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--plum);
+    background: rgba(107,45,139,0.1);
+    border: 1px solid rgba(107,45,139,0.14);
+    border-radius: 999px;
+    padding: 9px 12px;
+  }
+  .maturity-summary {
+    max-width: 760px;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 22px;
+  }
+  .maturity-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+  .maturity-pane {
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(107,45,139,0.1);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .maturity-pane-label {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 7px;
+  }
+  .maturity-pane p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .maturity-progress {
+    margin-bottom: 18px;
+  }
+  .maturity-progress-label {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px;
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-size: 0.84rem;
+    color: var(--text);
+  }
+  .maturity-progress-track {
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(107,45,139,0.1);
+  }
+  .maturity-progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--purple) 0%, var(--sky) 100%);
+    transition: width 0.9s ease;
+  }
+  .maturity-journey {
+    margin-top: 22px;
+    padding: 22px 20px 20px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, rgba(107,45,139,0.08) 0%, rgba(255,255,255,0.98) 100%);
+    border: 1px solid rgba(107,45,139,0.1);
+  }
+  .maturity-journey-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: end;
+    margin-bottom: 16px;
+  }
+  .maturity-journey-head p {
+    max-width: 420px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-light);
+  }
+  .maturity-scale {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    position: relative;
+    padding-top: 18px;
+  }
+  .maturity-scale::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(107,45,139,0.16) 0%, rgba(88,160,255,0.16) 100%);
+  }
+  .maturity-step {
+    padding: 12px 10px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(107,45,139,0.1);
+    background: rgba(255,255,255,0.82);
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    text-align: center;
+  }
+  .maturity-step::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: var(--white);
+    border: 2px solid rgba(107,45,139,0.24);
+    box-shadow: 0 0 0 6px rgba(107,45,139,0.05);
+  }
+  .maturity-step.active {
+    border-color: rgba(107,45,139,0.32);
+    background: linear-gradient(180deg, rgba(107,45,139,0.18) 0%, rgba(255,255,255,0.98) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(61,25,82,0.1);
+  }
+  .maturity-step.active::before {
+    background: var(--plum);
+    border-color: var(--plum);
+    box-shadow: 0 0 0 8px rgba(107,45,139,0.12);
+  }
+  .maturity-step.completed {
+    border-color: rgba(107,45,139,0.18);
+    background: rgba(107,45,139,0.06);
+  }
+  .maturity-step.completed::before {
+    background: rgba(107,45,139,0.65);
+  }
+  .maturity-step-level {
+    display: block;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .maturity-step-title {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--plum);
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .maturity-step-copy {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(61,25,82,0.92);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    white-space: normal;
+    width: 160px;
+    text-align: center;
+    z-index: 20;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s ease;
+  }
+  .maturity-step-copy::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(61,25,82,0.92);
+  }
+  .maturity-step:hover .maturity-step-copy {
+    opacity: 1;
+  }
+  .insight-pullout {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 0;
+    align-items: stretch;
+  }
+
+  /* Dimension bars */
+  .dimensions-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 0;
+    box-shadow: 0 12px 34px rgba(61,25,82,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .dimensions-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.09);
+  }
+  .dimensions-card h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: var(--plum);
+  }
+  .breakdown-layout {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.95fr) minmax(0, 1.05fr);
+    gap: 32px;
+    align-items: center;
+  }
+  .breakdown-visual {
+    display: block;
+  }
+  .breakdown-viz-card {
+    border: 1px solid rgba(107,45,139,0.1);
+    border-radius: 16px;
+    background: linear-gradient(160deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    padding: 20px 20px 18px;
+  }
+  .breakdown-viz-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .breakdown-radar-wrap {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+  .breakdown-radar {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  @keyframes radarGlow {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(107,45,139,0.3)); }
+    50% { filter: drop-shadow(0 0 12px rgba(107,45,139,0.6)); }
+  }
+  .breakdown-radar.glow-active {
+    animation: radarGlow 2s ease-in-out 3;
+  }
+  .breakdown-bars {
+    display: grid;
+    gap: 14px;
+    align-content: center;
+  }
+  .dim-row {
+    margin-bottom: 0;
+    padding: 16px 18px;
+    border: 1px solid rgba(107,45,139,0.08);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(107,45,139,0.02) 100%);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .dim-row:last-child { margin-bottom: 0; }
+  .dim-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+  .dim-label span:last-child {
+    font-weight: 600;
+    color: var(--purple);
+  }
+  .dim-track {
+    height: 8px;
+    background: rgba(107,45,139,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .dim-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+    width: 0%;
+  }
+  .dim-fill.strategic { background: var(--purple); }
+  .dim-fill.operational { background: var(--sky); }
+  .dim-fill.execution { background: var(--amber); }
+  .dim-fill.sustainability { background: var(--mint); }
+
+  /* Dimension icons */
+  .dim-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .dim-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .dim-label-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Dimension tooltips */
+  .dim-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: var(--plum);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    padding: 10px 14px;
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 10;
+    font-style: italic;
+  }
+  .dim-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 26px;
+    border: 6px solid transparent;
+    border-top-color: var(--plum);
+  }
+  .dim-row:hover .dim-tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .dim-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(61,25,82,0.1);
+  }
+
+  /* Insight cards */
+  .insight-card {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 0;
+    box-shadow: 0 12px 30px rgba(61,25,82,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .insight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.08);
+  }
+  .insight-card h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .insight-card p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .insight-card.emphasis {
+    background: linear-gradient(135deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    border-color: rgba(107,45,139,0.12);
+  }
+  /* From the playbook callout */
+  .playbook-callout {
+    margin-top: 24px;
+    padding: 16px 20px;
+    border-left: 3px solid var(--purple);
+    background: var(--pale);
+    border-radius: 0 12px 12px 0;
+  }
+  .playbook-callout-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--purple);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .playbook-callout-label svg {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+  .playbook-callout p {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--plum);
+    font-style: italic;
+    font-weight: 400;
+    margin: 0;
+  }
+  @keyframes calloutPulse {
+    0%, 100% { border-left-color: var(--purple); }
+    50% { border-left-color: var(--violet); }
+  }
+  .playbook-callout.animate-in {
+    animation: calloutPulse 1.2s ease 0.4s 2;
+  }
+  .strength-card {
+    background: linear-gradient(135deg, rgba(53,189,136,0.08) 0%, rgba(255,255,255,1) 100%);
+    border-color: rgba(53,189,136,0.16);
+  }
+  .insight-contrast-card {
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 16px;
+    background: linear-gradient(180deg, rgba(107,45,139,0.06) 0%, rgba(255,255,255,1) 100%);
+    padding: 20px 18px;
+    box-shadow: 0 8px 24px rgba(61,25,82,0.03);
+    display: grid;
+    align-content: center;
+    gap: 14px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .insight-contrast-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(61,25,82,0.08);
+  }
+  .contrast-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+  }
+  .contrast-row {
+    display: grid;
+    gap: 8px;
+  }
+  .contrast-name {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 0.86rem;
+    color: var(--text);
+  }
+  .contrast-name strong {
+    color: var(--plum);
+  }
+  .contrast-track {
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(107,45,139,0.08);
+  }
+  .contrast-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    transition: width 0.8s ease;
+  }
+  .contrast-fill.gap {
+    background: linear-gradient(90deg, rgba(107,45,139,0.9) 0%, rgba(107,45,139,0.45) 100%);
+  }
+  .contrast-fill.strength {
+    background: linear-gradient(90deg, rgba(53,189,136,0.92) 0%, rgba(53,189,136,0.52) 100%);
+  }
+  .insight-bar-row {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(107,45,139,0.08);
+  }
+  .contrast-delta {
+    padding-top: 8px;
+    border-top: 1px solid rgba(107,45,139,0.08);
+  }
+  .contrast-delta strong {
+    display: block;
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.55rem;
+    color: var(--plum);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .contrast-delta span {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--text-light);
+  }
+  .insight-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.77rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .insight-big-title {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.52rem;
+    line-height: 1.25;
+    color: var(--plum);
+    margin-bottom: 12px;
+  }
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .analysis-pane {
+    background: rgba(107,45,139,0.04);
+    border: 1px solid rgba(107,45,139,0.1);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .analysis-pane strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.77rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 8px;
+  }
+  .analysis-pane span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text);
+  }
+  .risk-inline {
+    margin-top: 16px;
+    padding: 15px 17px;
+    border-radius: 12px;
+    border-left: 3px solid var(--coral);
+    background: #FFF8F7;
+  }
+  .risk-inline strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.77rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 7px;
+  }
+  .risk-inline span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.62;
+    color: var(--text);
+  }
+  .playbook-card {
+    background: linear-gradient(135deg, rgba(61,25,82,0.03) 0%, rgba(107,45,139,0.05) 100%);
+    border-color: rgba(61,25,82,0.12);
+  }
+  .playbook-layout {
+    display: grid;
+    grid-template-columns: 168px minmax(0, 1fr);
+    gap: 28px;
+    align-items: center;
+    margin-top: 18px;
+  }
+  .playbook-cover-preview {
+    width: 100%;
+    max-width: 168px;
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(61,25,82,0.14), 0 4px 10px rgba(0,0,0,0.08);
+    transform: none;
+    background: rgba(255,255,255,0.85);
+    justify-self: center;
+  }
+  .playbook-content {
+    min-width: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .playbook-cover-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .playbook-read-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--plum);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 10px 16px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .playbook-read-btn:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+  }
+  .playbook-steps {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    align-items: stretch;
+  }
+  .playbook-step {
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.88);
+    display: flex;
+    flex-direction: column;
+  }
+  .playbook-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 76px;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: rgba(107,45,139,0.09);
+    color: var(--plum);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .playbook-step-title {
+    display: block;
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--plum);
+    line-height: 1.45;
+    margin-bottom: 4px;
+  }
+  .playbook-step-snippet {
+    display: block;
+    font-size: 0.86rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin-bottom: 10px;
+    margin-top: 6px;
+  }
+  .playbook-step-page {
+    display: block;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: auto;
+  }
+  .action-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+  }
+  .action-card {
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 16px;
+    padding: 18px;
+    background: linear-gradient(180deg, rgba(107,45,139,0.05) 0%, rgba(255,255,255,1) 100%);
+  }
+  .action-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .action-card-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: var(--plum);
+    color: var(--white);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.84rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .action-card-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--plum);
+    line-height: 1.35;
+  }
+  .action-card p {
+    font-size: 0.9rem;
+    line-height: 1.62;
+    color: var(--text);
+  }
+  .insight-list {
+    list-style: none;
+    margin-top: 14px;
+    display: grid;
+    gap: 12px;
+  }
+  .insight-list li {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .insight-list-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    background: rgba(107,45,139,0.09);
+    color: var(--plum);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .insight-list-copy strong {
+    display: block;
+    font-size: 0.87rem;
+    color: var(--plum);
+    margin-bottom: 2px;
+  }
+  .insight-list-copy span {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .insight-gap-cta {
+    display: inline-block;
+    margin-top: 0;
+    font-size: 0.78rem;
+    letter-spacing: 0.3px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--violet);
+    text-decoration: none;
+    border: 1px solid rgba(107,45,139,0.2);
+    border-radius: 999px;
+    padding: 7px 11px;
+    transition: background 0.2s, border-color 0.2s;
+    text-align: center;
+  }
+  .insight-gap-cta:hover {
+    background: rgba(107,45,139,0.06);
+    border-color: rgba(107,45,139,0.35);
+  }
+  .insight-card.risk {
+    border-left: 3px solid var(--coral);
+    background: #FFF8F7;
+  }
+  .insight-card.risk h3 { color: var(--coral); }
+
+  .results-cta {
+    margin-top: 40px;
+    padding: 40px 32px;
+    background: var(--pale);
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .results-cta-cover {
+    width: 160px;
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(61,25,82,0.15), 0 2px 6px rgba(0,0,0,0.08);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+  .results-cta-cover:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  .results-cta-body h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .results-cta-body p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .email-capture {
+    display: flex;
+    gap: 10px;
+  }
+  .email-capture input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1.5px solid rgba(107,45,139,0.2);
+    border-radius: 10px;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .email-capture input::placeholder { color: #aaa; }
+  .email-capture input:focus { border-color: var(--purple); }
+  .email-capture button {
+    background: var(--plum);
+    color: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .email-capture button:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(107,45,139,0.3);
+  }
+  .email-capture-note {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    opacity: 0.7;
+  }
+  .email-success {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.25);
+    border-radius: 10px;
+    color: #1a7a3a;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  @media (max-width: 600px) {
+    .results-section.active {
+      gap: 24px;
+      width: 100%;
+      margin-left: 0;
+    }
+    .score-display {
+      padding: 46px 22px 38px;
+      border-radius: 18px;
+    }
+    .maturity-card,
+    .dimensions-card,
+    .insight-card,
+    .results-section .floqademy-section {
+      padding: 24px 20px;
+      border-radius: 18px;
+    }
+    .maturity-header {
+      flex-direction: column;
+    }
+    .maturity-title {
+      font-size: 1.35rem;
+    }
+    .maturity-grid {
+      grid-template-columns: 1fr;
+    }
+    .maturity-progress-label {
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .maturity-journey {
+      padding: 18px 16px 16px;
+    }
+    .maturity-journey-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .maturity-scale {
+      grid-template-columns: 1fr;
+    }
+    .maturity-step {
+      min-height: auto;
+    }
+    .insight-pullout {
+      grid-template-columns: 1fr;
+    }
+    .breakdown-layout,
+    .playbook-layout,
+    .analysis-grid,
+    .playbook-steps,
+    .action-cards {
+      grid-template-columns: 1fr;
+    }
+    .playbook-cover-preview {
+      width: 140px;
+      margin: 0 auto;
+      max-width: 140px;
+    }
+    .results-cta {
+      grid-template-columns: 1fr;
+      text-align: center;
+      padding: 32px 24px;
+    }
+    .results-cta-cover {
+      margin: 0 auto;
+      width: 140px;
+      transform: rotate(0);
+    }
+    .email-capture { flex-direction: column; }
+  }
+
+  /* === FOOTER === */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    font-size: 0.8rem;
+    color: var(--text-light);
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+
+    .hero { padding: 56px 20px 72px; }
+    .score-pct { font-size: 3.5rem; }
+    .score-arc-wrap {
+      width: 130px;
+      height: 130px;
+    }
+    .score-intro { font-size: 0.9rem; }
+  }
+
+  /* === GUIDE SECTION === */
+  .guide-section {
+    background: var(--plum);
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .guide-section::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -15%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(155,89,182,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .guide-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .guide-card {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .guide-cover {
+    width: 150px;
+    border-radius: 8px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 4px 12px rgba(0,0,0,0.2);
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+  }
+  .guide-cover:hover { transform: rotate(0deg) scale(1.03); }
+  .guide-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lavender);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .guide-card-body h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .guide-card-body p {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 24px;
+    line-height: 1.65;
+  }
+  .guide-card-body .email-capture input {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: var(--white);
+  }
+  .guide-card-body .email-capture input::placeholder { color: rgba(255,255,255,0.45); }
+  .guide-card-body .email-capture input:focus { border-color: var(--lavender); }
+  .guide-card-body .email-capture button {
+    background: var(--white);
+    color: var(--plum);
+  }
+  .guide-card-body .email-capture button:hover {
+    background: var(--pale);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  }
+  .guide-card-body .email-capture-note { color: rgba(255,255,255,0.45); }
+  @media (max-width: 600px) {
+    .guide-card { grid-template-columns: 1fr; text-align: center; }
+    .guide-cover { margin: 0 auto; transform: rotate(0); }
+    .guide-card-body .email-capture { flex-direction: column; }
+  }
+
+  /* === FLOQADEMY RECOMMENDATIONS === */
+  .floqademy-section {
+    display: none;
+    margin-top: 0;
+    padding: 32px 28px 28px;
+    background: linear-gradient(135deg, rgba(61,25,82,0.03) 0%, rgba(107,45,139,0.05) 100%);
+    border: 1px solid rgba(107,45,139,0.12);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(61,25,82,0.04);
+  }
+  .results-section .floqademy-section {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 28px 28px 24px;
+    background: linear-gradient(135deg, rgba(61,25,82,0.02) 0%, rgba(107,45,139,0.04) 100%);
+    border-color: rgba(61,25,82,0.14);
+  }
+  .floqademy-section.active { display: block; }
+  .floqademy-header {
+    margin-bottom: 20px;
+  }
+  .floqademy-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .floqademy-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1.5px;
+    background: var(--violet);
+  }
+  .floqademy-section h3 {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 4px;
+  }
+  .floqademy-section .fq-subtext {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 0;
+  }
+  .floqademy-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .fq-card {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(107,45,139,0.12);
+    border-radius: 10px;
+    background: var(--white);
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .fq-card:hover {
+    border-color: var(--violet);
+    box-shadow: 0 2px 12px rgba(107,45,139,0.1);
+  }
+  .fq-card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(107,45,139,0.16);
+    background: linear-gradient(160deg, #ffffff 0%, #f7f3fb 100%);
+  }
+  .fq-card-icon::before,
+  .fq-card-icon::after {
+    content: '';
+    position: absolute;
+    border-radius: 999px;
+    background: rgba(107,45,139,0.2);
+  }
+  .fq-card-icon::before {
+    width: 18px;
+    height: 18px;
+    top: 5px;
+    right: 5px;
+  }
+  .fq-card-icon::after {
+    width: 24px;
+    height: 24px;
+    bottom: -8px;
+    left: -8px;
+  }
+  .fq-card-icon.fq-foundations {
+    background:
+      linear-gradient(180deg, rgba(107,45,139,0.26) 0%, rgba(107,45,139,0.08) 100%),
+      repeating-linear-gradient(90deg, transparent 0 8px, rgba(255,255,255,0.32) 8px 10px);
+  }
+  .fq-card-icon.fq-unleashed {
+    background:
+      linear-gradient(145deg, rgba(166,147,255,0.34) 0%, rgba(107,45,139,0.14) 100%),
+      linear-gradient(35deg, rgba(255,255,255,0.35), rgba(255,255,255,0));
+  }
+  .fq-card-icon.fq-governance {
+    background:
+      linear-gradient(180deg, rgba(53,189,136,0.24) 0%, rgba(107,45,139,0.1) 100%),
+      repeating-linear-gradient(0deg, transparent 0 7px, rgba(255,255,255,0.28) 7px 9px);
+  }
+  .fq-card-icon.fq-matching {
+    background:
+      radial-gradient(circle at 65% 32%, rgba(255,255,255,0.65) 0 14%, transparent 15%),
+      linear-gradient(145deg, rgba(88,160,255,0.22) 0%, rgba(107,45,139,0.14) 100%);
+  }
+  .fq-card-icon.fq-agent {
+    background:
+      linear-gradient(135deg, rgba(107,45,139,0.28) 0%, rgba(61,25,82,0.12) 100%),
+      repeating-linear-gradient(45deg, rgba(255,255,255,0.22) 0 3px, transparent 3px 7px);
+  }
+  .fq-card-icon.fq-transform {
+    background:
+      linear-gradient(145deg, rgba(255,116,109,0.24) 0%, rgba(107,45,139,0.14) 100%),
+      linear-gradient(15deg, rgba(255,255,255,0.24), rgba(255,255,255,0));
+  }
+  .fq-card-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .fq-card-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.35;
+  }
+  .fq-card-arrow {
+    font-size: 0.9rem;
+    color: var(--violet);
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .fq-card:hover .fq-card-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+  .floqademy-browse-all {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--purple);
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .floqademy-browse-all:hover {
+    background: rgba(107,45,139,0.06);
+    color: var(--plum);
+  }
+
+
+  /* Inline stat numbers inside prose */
+  .num-inline {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--purple);
+    letter-spacing: -0.5px;
+  }
+
+  /* Embed overrides */
+  body { margin: 0; }
+  .quiz-section { border-top: none; padding-top: 48px; }
+
+  /* === RESULTS GATE === */
+  .results-gate {
+    position: relative;
+  }
+  .gated-content {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+    transition: filter 0.5s ease;
+  }
+  .gated-content.unlocked {
+    filter: none;
+    pointer-events: auto;
+    user-select: auto;
+  }
+  .gate-card {
+    position: sticky;
+    top: 32px;
+    z-index: 10;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(61,25,82,0.18), 0 2px 8px rgba(0,0,0,0.06);
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(107,45,139,0.12);
+  }
+  .gate-layout {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  .gate-cover-img {
+    width: 88px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    box-shadow: 4px 4px 16px rgba(0,0,0,0.15);
+  }
+  .gate-form { flex: 1; }
+  .gate-headline {
+    font-family: 'Polymath', 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--plum);
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+  .gate-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .gate-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .gate-field label {
+    font-size: 0.72rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    color: var(--text-light);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .gate-field input {
+    padding: 10px 14px;
+    border: 1.5px solid rgba(107,45,139,0.2);
+    border-radius: 8px;
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .gate-field input::placeholder { color: #bbb; }
+  .gate-field input:focus { border-color: var(--purple); }
+  .gate-field input.error { border-color: var(--coral); }
+  .gate-submit-btn {
+    width: 100%;
+    background: var(--plum);
+    color: var(--white);
+    font-family: 'Polymath Text', 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .gate-submit-btn:hover {
+    background: var(--purple);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(107,45,139,0.3);
+  }
+  @media (max-width: 580px) {
+    .gate-form-grid { grid-template-columns: 1fr; }
+  }
+  .gate-success {
+    display: none;
+    padding: 14px 18px;
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.25);
+    border-radius: 10px;
+    color: #1a7a3a;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  @media (max-width: 500px) {
+    .gate-layout { flex-direction: column; align-items: flex-start; }
+    .gate-cover-img { width: 70px; }
+    .gate-card { padding: 20px; top: 16px; }
+    .gate-headline { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<section class="quiz-section" id="quiz">
+  <div class="quiz-container">
+    <div class="quiz-header">
+      <h2>What's Your AI Readiness Score?</h2>
+      <p>8 questions. No wrong answers. Just an honest snapshot.</p>
+    </div>
+
+    <!-- Quiz body -->
+    <div id="quiz-body">
+      <div class="progress-text"><span id="q-counter">1</span> of 8</div>
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+      <!-- Questions inserted by JS -->
+      <div id="questions-container"></div>
+
+      <div class="quiz-nav">
+        <button class="btn-back hidden" id="btn-back" onclick="prevQuestion()">← Back</button>
+        <button class="btn-next" id="btn-next" onclick="nextQuestion()">Next →</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-section" id="results-section">
+      <div class="score-display results-reveal" style="--delay:0.02s;">
+        <div class="score-arc-wrap">
+          <svg class="score-arc-svg" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="score-arc-track" cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"/>
+            <circle class="score-arc-fill" id="score-arc-fill" cx="60" cy="60" r="52" fill="none" stroke="rgba(200,159,214,0.6)" stroke-width="4" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="score-pct" id="score-pct">0%</div>
+        </div>
+        <div class="score-label">AI Readiness Score</div>
+        <div class="score-profile" id="score-profile">—</div>
+        <p class="score-intro" id="score-intro"></p>
+      </div>
+
+      <div class="dimensions-card results-reveal" style="--delay:0.10s;">
+        <div class="section-number">Your AI readiness</div>
+        <div class="breakdown-layout">
+          <div class="breakdown-visual">
+            <div class="breakdown-viz-card">
+              <div class="breakdown-viz-label">Readiness shape</div>
+              <div class="breakdown-radar-wrap">
+                <svg class="breakdown-radar" id="readiness-radar" viewBox="-80 -20 480 360" aria-label="Readiness radar chart"></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="breakdown-bars">
+            <div class="dim-row">
+              <div class="dim-tooltip">Every successful AI initiative starts with a clear vision — one that aligns your team and anchors your strategy.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6.5" stroke="#6B2D8B" stroke-width="1.5"/><circle cx="8" cy="8" r="2.5" stroke="#6B2D8B" stroke-width="1.5"/><line x1="8" y1="1.5" x2="8" y2="4" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/><line x1="8" y1="12" x2="8" y2="14.5" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/><line x1="1.5" y1="8" x2="4" y2="8" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="8" x2="14.5" y2="8" stroke="#6B2D8B" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+                  <span>Strategic Readiness</span>
+                </div>
+                <span id="dim-strategic-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill strategic" id="dim-strategic"></div></div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-tooltip">Mapping your current processes is how you uncover where AI can have the biggest impact.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="5.5" stroke="#3498DB" stroke-width="1.5"/><path d="M8 2.5V5M8 11V13.5M2.5 8H5M11 8H13.5" stroke="#3498DB" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="8" r="1.5" fill="#3498DB"/></svg></span>
+                  <span>Operational Readiness</span>
+                </div>
+                <span id="dim-operational-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill operational" id="dim-operational"></div></div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-tooltip">A strategic pilot lets you validate AI's value before committing to full-scale change.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 1.5L5.5 8.5H9L7 14.5L12.5 6.5H9L11 1.5H9Z" stroke="#F39C12" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+                  <span>Execution Readiness</span>
+                </div>
+                <span id="dim-execution-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill execution" id="dim-execution"></div></div>
+            </div>
+            <div class="dim-row">
+              <div class="dim-tooltip">AI isn't a one-and-done project — continuous improvement ensures it stays relevant as your business evolves.</div>
+              <div class="dim-label">
+                <div class="dim-label-left">
+                  <span class="dim-icon"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.5C5 2.5 2.5 5 2.5 8S5 13.5 8 13.5 13.5 11 13.5 8" stroke="#2ECC71" stroke-width="1.5" stroke-linecap="round"/><path d="M11 2l2.5 2.5L11 7" stroke="#2ECC71" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span>Sustainability Readiness</span>
+                </div>
+                <span id="dim-sustainability-pct">0%</span>
+              </div>
+              <div class="dim-track"><div class="dim-fill sustainability" id="dim-sustainability"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RESULTS GATE -->
+      <div id="results-gate">
+        <div class="gate-card" id="gate-card">
+          <div class="gate-layout">
+            <img id="gate-cover-img" class="gate-cover-img" src="" alt="AI Playbook for Accounting cover">
+            <div class="gate-form">
+              <p class="gate-headline">Unlock your full results + our AI Playbook for Accounting — free</p>
+              <div id="gate-email-form">
+                <div class="gate-form-grid">
+                  <div class="gate-field">
+                    <label for="gate-firstname">First name</label>
+                    <input type="text" id="gate-firstname" placeholder="Jane" autocomplete="given-name">
+                  </div>
+                  <div class="gate-field">
+                    <label for="gate-lastname">Last name</label>
+                    <input type="text" id="gate-lastname" placeholder="Smith" autocomplete="family-name">
+                  </div>
+                  <div class="gate-field">
+                    <label for="gate-email-input">Work email</label>
+                    <input type="email" id="gate-email-input" placeholder="jane@company.com" autocomplete="email">
+                  </div>
+                  <div class="gate-field">
+                    <label for="gate-company">Company</label>
+                    <input type="text" id="gate-company" placeholder="Acme Inc." autocomplete="organization">
+                  </div>
+                </div>
+                <button class="gate-submit-btn" onclick="handleGateSubmit()">Unlock My Results</button>
+                <div class="email-capture-note">No spam. Unsubscribe anytime.</div>
+              </div>
+              <div class="gate-success" id="gate-success">✓ Unlocking your results…</div>
+            </div>
+          </div>
+        </div>
+        <div id="gated-content" class="gated-content">
+
+      <div class="maturity-card results-reveal" style="--delay:0.18s;">
+        <div class="maturity-header">
+          <div>
+            <div class="maturity-eyebrow">02 — Your AI Maturity Level</div>
+            <div class="maturity-title" id="maturity-title">Level 1: Manual & Disconnected</div>
+          </div>
+          <div class="maturity-badge" id="maturity-badge">Level 1</div>
+        </div>
+
+        <p class="maturity-summary" id="maturity-summary"></p>
+
+        <div class="maturity-journey">
+          <div class="maturity-journey-head">
+            <span class="maturity-pane-label">Five-stage journey</span>
+          </div>
+          <div class="maturity-scale" id="maturity-scale"></div>
+        </div>
+
+      </div>
+
+      <div class="insight-pullout results-reveal" style="--delay:0.26s;">
+        <div class="insight-card emphasis" id="insight-gap"></div>
+        <div class="insight-card strength-card" id="insight-strength"></div>
+      </div>
+
+      <div class="insight-card results-reveal" id="insight-next-steps" style="--delay:0.46s;"></div>
+      <div class="insight-card playbook-card results-reveal" id="insight-playbook" style="--delay:0.56s;"></div>
+
+
+        </div><!-- /gated-content -->
+      </div><!-- /results-gate -->
+
+    </div>
+  </div>
+</section>
+
+<script>
+const questions = [
+  {
+    dimension: "AI Adoption",
+    text: "Where would you honestly place your organisation on the AI adoption curve?",
+    shuffle: false,
+    answers: [
+      { text: "Most accounting workflows are performed manually", pts: 1 },
+      { text: "Core workflows are supported by digital tools, but AI is limited or exploratory", pts: 1 },
+      { text: "Workflows are streamlined with AI, but decision-making remains primarily human-led", pts: 2 },
+      { text: "AI tools are embedded in select workflows, contributing to analysis, predictions, or recommendations", pts: 3 },
+      { text: "AI plays a central role in enabling a highly automated, continuously updated close process", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Stakeholder Buy-In",
+    text: "Who's driving AI conversations internally?",
+    answers: [
+      { text: "One person or a small team, exploring mostly on their own", pts: 1 },
+      { text: "Leadership is pushing for AI, but department heads haven't bought in yet", pts: 2 },
+      { text: "Finance and IT are aligned, but we’re still waiting on Audit or Legal", pts: 3 },
+      { text: "Cross-functional buy-in with active “AI Champions” in multiple departments", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Manual Workload",
+    text: "How much of your team’s time is still eaten up by manual accounting tasks?",
+    shuffle: false,
+    answers: [
+      { text: "75%–100% of time", pts: 1 },
+      { text: "60%–74% of time", pts: 1 },
+      { text: "45%–59% of time", pts: 2 },
+      { text: "35%–44% of time", pts: 3 },
+      { text: "10%–34% of time", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Automation Fit",
+    text: "How would you describe the processes you'd want to automate?",
+    answers: [
+      { text: "Complex, judgment-heavy, and different every time", pts: 1 },
+      { text: "Some patterns, but lots of exceptions and messy data", pts: 2 },
+      { text: "Mostly rule-based and predictable, but not yet standardised", pts: 3 },
+      { text: "Repetitive, rule-based, high-volume, clean data", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Business Case",
+    text: "Could you justify an AI investment to leadership today?",
+    answers: [
+      { text: "Not really — we don't have the numbers", pts: 1 },
+      { text: "We could make a qualitative argument for “better efficiency”", pts: 2 },
+      { text: "We could point to specific use cases with estimated ROI", pts: 3 },
+      { text: "We've built a data-backed case — (FTE savings, error reduction, faster close)", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Vendor Evaluation",
+    text: "How much have you thought about what you need from an AI vendor?",
+    answers: [
+      { text: "Haven't started — not sure what to look for", pts: 1 },
+      { text: "We know we need system integration, but that's about it", pts: 2 },
+      { text: "We have a mental shortlist of requirements but nothing formalised", pts: 3 },
+      { text: "We've defined criteria for scalability, auditability, security, training, and human oversight", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Pilot Approach",
+    text: "What's your rollout plan?",
+    answers: [
+      { text: "Go big, go fast", pts: 1 },
+      { text: "We want to start small but haven't planned anything specific", pts: 2 },
+      { text: "We've picked a pilot process but haven’t defined what “success” looks like", pts: 3 },
+      { text: "Structured pilot — defined processes, success metrics, clean data, and feedback loop", pts: 4 },
+    ]
+  },
+  {
+    dimension: "Controls Maturity",
+    text: "How would you describe your approach to financial controls in the close process?",
+    shuffle: false,
+    answers: [
+      { text: "Controls are largely informal or handled manually, with limited documentation or consistency", pts: 1 },
+      { text: "Some controls are defined and applied, but execution and documentation vary across the close process", pts: 1 },
+      { text: "Controls are standardised, consistently executed, and well documented", pts: 2 },
+      { text: "Controls are actively monitored and improved based on performance and identified risks", pts: 3 },
+      { text: "Controls are continuously monitored and optimised using automation or AI", pts: 4 },
+    ]
+  },
+];
+
+let current = 0;
+let selected = new Array(questions.length).fill(null);
+let isTransitioning = false;
+let lockedQuestionHeight = 0;
+let autoAdvanceTimer = null;
+
+// Shuffle answers for each question (keep pts attached)
+const shuffledQuestions = questions.map(q => {
+  if (q.shuffle === false) return q;
+  const shuffled = [...q.answers];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return { ...q, answers: shuffled };
+});
+
+// === FLOQADEMY COURSE RECOMMENDATIONS ===
+const fqCourses = {
+  foundations: {
+    visual: 'fq-foundations',
+    tag: 'Foundational · CPE',
+    title: 'AI Foundations Badge',
+    url: 'https://floqademy.floqast.com/page/library#featured-courses_ai-education',
+  },
+  unleashed: {
+    visual: 'fq-unleashed',
+    tag: 'Strategic · CPE',
+    title: 'AI Unleashed: Transforming Accounting with AI',
+    url: 'https://floqademy.floqast.com/page/library#featured-courses_ai-education',
+  },
+  governance: {
+    visual: 'fq-governance',
+    tag: 'Governance · 1.0 CPE',
+    title: 'AI Governance and Policy Implementation',
+    url: 'https://floqademy.floqast.com/ai-policy',
+  },
+  matching: {
+    visual: 'fq-matching',
+    tag: 'Product · 0.5 CPE',
+    title: 'FloQast AI Matching Spotlight',
+    url: 'https://floqademy.floqast.com/floqast-ai-matching-spotlight',
+  },
+  agent: {
+    visual: 'fq-agent',
+    tag: 'Product Demo',
+    title: 'FloQast AI Agent: Demo in Detail',
+    url: 'https://floqademy.floqast.com/floqast-ai-agent-demo-in-detail',
+  },
+  transform: {
+    visual: 'fq-transform',
+    tag: 'Advanced · CPE',
+    title: 'Unlock Your Edge with FloQast Transform AI Agents',
+    url: 'https://floqademy.floqast.com/page/library#featured-courses_ai-education',
+  },
+};
+
+function getFloqademyRecs(answers) {
+  const strategic   = answers[0] + answers[1];
+  const operational = answers[2] + answers[3];
+  const execution   = answers[4] + answers[5];
+  const sustain     = answers[6] + answers[7];
+  const total       = answers.reduce((a, b) => a + b, 0);
+  const recs = [];
+
+  if (total <= 13) {
+    // Early Explorer — need the big picture first
+    recs.push(fqCourses.unleashed, fqCourses.foundations);
+  } else if (total <= 20) {
+    // Building Foundations
+    recs.push(fqCourses.unleashed);
+    recs.push(strategic <= 4 ? fqCourses.governance : fqCourses.foundations);
+  } else if (total <= 27) {
+    // Ready to Launch — getting practical
+    recs.push(fqCourses.matching, fqCourses.agent);
+  } else {
+    // Scaling with Confidence — go deep on tooling
+    recs.push(fqCourses.agent, fqCourses.transform);
+  }
+
+  // Dimension-specific additions (if not already in)
+  if (strategic <= 4 && !recs.includes(fqCourses.governance)) recs.push(fqCourses.governance);
+  if (execution <= 4 && !recs.includes(fqCourses.matching)) recs.push(fqCourses.matching);
+  if (sustain >= 6 && total >= 24 && !recs.includes(fqCourses.transform)) recs.push(fqCourses.transform);
+
+  // Deduplicate, cap at 3
+  return [...new Set(recs)].slice(0, 3);
+}
+
+function renderFloqademy(answers) {
+  const recs = getFloqademyRecs(answers);
+  const section = document.getElementById('floqademy-section');
+  const container = document.getElementById('floqademy-cards');
+  section.classList.add('active');
+  container.innerHTML = recs.map(c => `
+    <a class="fq-card" href="${c.url}" target="_blank" rel="noopener">
+      <div class="fq-card-icon ${c.visual}" aria-hidden="true"></div>
+      <div>
+        <div class="fq-card-tag">${c.tag}</div>
+        <div class="fq-card-title">${c.title}</div>
+      </div>
+      <div class="fq-card-arrow">→</div>
+    </a>
+  `).join('');
+}
+
+const maturityLevels = [
+  {
+    level: 1,
+    min: 8,
+    max: 12,
+    name: 'Manual & Disconnected',
+    capacity: 'Almost entirely operational; strategy is an afterthought.',
+    summary: 'AI interest is there, but the foundation is still early. Teams at this stage are usually exploring possibilities without a shared plan, a clear pilot path, or enough structure to scale confidently.',
+  },
+  {
+    level: 2,
+    min: 13,
+    max: 17,
+    name: 'Standardized & Connected',
+    capacity: 'Mostly operational, with some time for analysis.',
+    summary: 'You have enough alignment to move beyond experimentation. The next step is turning scattered signals into a consistent operating model with measurable priorities and clearer execution discipline.',
+  },
+  {
+    level: 3,
+    min: 18,
+    max: 22,
+    name: 'AI-Augmented Workflows',
+    capacity: 'Better balance between execution and analysis.',
+    summary: 'You are entering the zone where AI can support real accounting workflows. The opportunity now is to make pilots repeatable, measurable, and strong enough to earn broader adoption.',
+  },
+  {
+    level: 4,
+    min: 23,
+    max: 27,
+    name: 'Autonomous & Controlled',
+    capacity: 'Significant shift from preparers to reviewers.',
+    summary: 'You have the ingredients to scale beyond one-off pilots. Focus here is less about proving AI can work and more about expanding safely with governance, controls, and stronger change management.',
+  },
+  {
+    level: 5,
+    min: 28,
+    max: 32,
+    name: 'AI-Native Strategic Finance',
+    capacity: 'Proactive management and strategic business partnering.',
+    summary: 'AI is becoming part of how finance operates and creates capacity. The work at this level is about sustaining trust, strengthening oversight, and continuously improving where AI delivers the most leverage.',
+  },
+];
+
+const actionLibrary = {
+  0: {
+    label: 'Define your AI starting point',
+    text: 'Assess where AI is genuinely embedded versus where it exists only in conversation — this gap is the first thing to close before committing to any roadmap or investment.',
+  },
+  1: {
+    label: 'Cross-functional buy-in',
+    text: 'Build visible sponsorship across Finance, IT, Audit, Legal, and leadership so AI is not owned by one team alone.',
+  },
+  2: {
+    label: 'Reduce manual accounting time',
+    text: 'Identify the highest-volume manual tasks in your close process — reconciliations, journal entries, or transaction matching — and prioritise these for automation.',
+  },
+  3: {
+    label: 'Automation-fit assessment',
+    text: 'Identify one repetitive, rules-based workflow with data clean enough to support a realistic automation pilot.',
+  },
+  4: {
+    label: 'Business case',
+    text: 'Build a simple ROI case using hours saved, error reduction, faster close, or redeployed team capacity.',
+  },
+  5: {
+    label: 'Vendor criteria',
+    text: 'Document the vendor criteria that matter most: integration, auditability, security, training, and human oversight.',
+  },
+  6: {
+    label: 'Pilot design',
+    text: 'Choose one pilot process and define success metrics, clean inputs, owners, and a clear feedback loop before rollout.',
+  },
+  7: {
+    label: 'Strengthen financial controls',
+    text: 'Formalise and document controls across the close process before scaling AI — poorly defined controls are the most common reason AI implementations fail audit scrutiny.',
+  },
+};
+
+const dimensionOrder = ['strategic', 'operational', 'execution', 'sustainability'];
+
+const dimensionGroups = {
+  strategic: {
+    label: 'Strategic Readiness',
+    shortLabel: 'Strategic',
+    questionIndexes: [0, 1],
+    strength: "Your organisation is further along the AI adoption curve than most, and you have the cross-functional alignment to keep moving. That combination — real adoption progress plus stakeholder buy-in — is rare and valuable.",
+    gapLead: 'Your answers flagged your biggest gap in Strategic Readiness.',
+    meaning: 'Low Strategic Readiness means AI is still in exploratory territory, without the organisational alignment needed to move beyond it.',
+    consequence: "Without a shared view of where you are on the adoption curve and who owns the agenda, most AI initiatives stay in conversation and never reach execution.",
+    nextMove: 'The teams that progress fastest start by being honest about their current adoption level, then build the cross-functional support to move to the next stage.',
+    steps: [
+      { step: 'Step 01', title: 'Define the Vision for AI in Accounting', page: 3 },
+      { step: 'Step 04', title: 'Build the Business Case', page: 8 },
+    ],
+  },
+  operational: {
+    label: 'Operational Readiness',
+    shortLabel: 'Operational',
+    questionIndexes: [2, 3],
+    strength: 'You have a clear picture of where manual time is going and which processes are genuinely suited for automation. That combination is the foundation of a well-scoped pilot.',
+    gapLead: 'Your answers flagged your biggest gap in Operational Readiness.',
+    meaning: "Low Operational Readiness means a significant share of your team's time is still consumed by manual work, and the path to reducing it hasn't been mapped.",
+    consequence: "Trying to automate without understanding your manual workload or automation fit means you're likely to pick the wrong process first — and a mis-scoped pilot is worse than no pilot at all.",
+    nextMove: 'Before choosing a tool, quantify where manual time is concentrated and pressure-test whether those processes are actually ready to automate.',
+    steps: [
+      { step: 'Step 02', title: 'Map Your Current-State Processes', page: 4 },
+      { step: 'Step 03', title: 'Conduct an AI Fit Assessment', page: 5 },
+    ],
+  },
+  execution: {
+    label: 'Execution Readiness',
+    shortLabel: 'Execution',
+    questionIndexes: [4, 5],
+    strength: "You're stronger than most on turning interest into investment logic. A credible business case and clearer vendor thinking make it much easier to move from concept to approval.",
+    gapLead: 'Your answers flagged your biggest gap in Execution Readiness.',
+    meaning: 'Low Execution Readiness is the most common gap in teams that have already done the strategic thinking.',
+    consequence: "You may know where AI fits and how to talk about it internally, but without clear vendor criteria and a focused plan, even good strategy gets stuck in evaluation limbo.",
+    nextMove: 'The next unlock is turning interest into a tightly scoped, measurable buying and pilot motion.',
+    steps: [
+      { step: 'Step 05', title: 'Evaluate AI Providers', page: 9 },
+      { step: 'Step 06', title: 'Develop a Strategic Pilot Plan', page: 11 },
+    ],
+  },
+  sustainability: {
+    label: 'Sustainability Readiness',
+    shortLabel: 'Sustainability',
+    questionIndexes: [6, 7],
+    strength: "You're thinking about how AI implementation will hold up over time — structured pilots, strong controls, and clear documentation. That's what separates teams that scale from those that get stuck.",
+    gapLead: 'Your answers flagged your biggest gap in Sustainability Readiness.',
+    meaning: 'Low Sustainability Readiness means you could build something promising and still lose it to poor controls, audit friction, or a rollout that was never designed to stick.',
+    consequence: "AI that runs without formal controls or a structured rollout plan creates compliance risk and erodes trust — both of which are very hard to recover from.",
+    nextMove: 'Formalise your financial controls and define how AI outputs will be reviewed and documented before you scale anything beyond a pilot.',
+    steps: [
+      { step: 'Step 07', title: 'Operationalize Sustainable Change', page: 12 },
+      { step: 'Step 08', title: 'Measure Success', page: 14 },
+    ],
+  },
+};
+
+function getMaturityLevel(total) {
+  return maturityLevels.find(level => total >= level.min && total <= level.max) || maturityLevels[0];
+}
+
+function getPriorityActions(answers, count = 3) {
+  return answers
+    .map((score, index) => ({ score, index, action: actionLibrary[index] }))
+    .sort((a, b) => a.score - b.score || a.index - b.index)
+    .slice(0, count);
+}
+
+function formatList(items) {
+  if (items.length <= 1) return items[0] || '';
+  if (items.length === 2) return `${items[0]} and ${items[1]}`;
+  return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+}
+
+function getDimensionScores(answers) {
+  return dimensionOrder.map((key) => {
+    const meta = dimensionGroups[key];
+    const score = meta.questionIndexes.reduce((sum, index) => sum + answers[index], 0);
+    return {
+      key,
+      score,
+      percentage: Math.round((score - 2) / 6 * 100),
+      meta,
+    };
+  });
+}
+
+function getStrongestDimension(dimensionScores) {
+  return dimensionScores.reduce((best, current) => current.score >= best.score ? current : best, dimensionScores[0]);
+}
+
+function getWeakestDimension(dimensionScores) {
+  return dimensionScores.reduce((best, current) => current.score < best.score ? current : best, dimensionScores[0]);
+}
+
+function getScoreIntro(profile, weakestDimension) {
+  const weakest = weakestDimension.meta.shortLabel.toLowerCase();
+  const intros = {
+    'Early Explorer': `You have genuine AI intent, but the fastest way to create momentum now is to strengthen your ${weakest} foundation before tools start competing for attention.`,
+    'Building Foundations': `You are moving beyond curiosity. Tightening ${weakest} is what will help convert interest into a pilot that leadership can actually support.`,
+    'Ready to Launch': `You are closer to action than most teams. The biggest unlock from here is shoring up ${weakest} so execution does not stall.`,
+    'Scaling with Confidence': `You already have real momentum. The highest-leverage move now is making sure ${weakest} keeps pace with how quickly your AI ambition is growing.`,
+  };
+  return intros[profile] || intros['Building Foundations'];
+}
+
+function polarPoint(angleDeg, radius, center = 160) {
+  const angle = (angleDeg - 90) * Math.PI / 180;
+  return {
+    x: center + Math.cos(angle) * radius,
+    y: center + Math.sin(angle) * radius,
+  };
+}
+
+function polygonPoints(radius, angles) {
+  return angles.map(angle => {
+    const point = polarPoint(angle, radius);
+    return `${point.x},${point.y}`;
+  }).join(' ');
+}
+
+function renderRadarChart(dimensionScores) {
+  const svg = document.getElementById('readiness-radar');
+  if (!svg) return;
+
+  const angles = [0, 90, 180, 270];
+  const labels = [
+    { text: 'Strategic', angle: 0 },
+    { text: 'Operational', angle: 90 },
+    { text: 'Execution', angle: 180 },
+    { text: 'Sustainability', angle: 270 },
+  ];
+  const maxR = 126;
+  const rings = [42, 84, maxR];
+  const dataPoints = dimensionScores.map((dimension, index) => {
+    const point = polarPoint(angles[index], (dimension.percentage / 100) * maxR);
+    return `${point.x},${point.y}`;
+  }).join(' ');
+
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="radarFill" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(107,45,139,0.34)"></stop>
+        <stop offset="100%" stop-color="rgba(88,160,255,0.22)"></stop>
+      </linearGradient>
+    </defs>
+    ${rings.map(radius => `<polygon points="${polygonPoints(radius, angles)}" fill="none" stroke="rgba(107,45,139,0.12)" stroke-width="1"></polygon>`).join('')}
+    ${angles.map(angle => {
+      const outer = polarPoint(angle, maxR);
+      return `<line x1="160" y1="160" x2="${outer.x}" y2="${outer.y}" stroke="rgba(107,45,139,0.12)" stroke-width="1"></line>`;
+    }).join('')}
+    <polygon points="${dataPoints}" fill="url(#radarFill)" stroke="rgba(61,25,82,0.9)" stroke-width="2"></polygon>
+    ${dimensionScores.map((dimension, index) => {
+      const point = polarPoint(angles[index], (dimension.percentage / 100) * maxR);
+      return `<circle cx="${point.x}" cy="${point.y}" r="4.5" fill="${['#6B2D8B', '#58A0FF', '#F0B44D', '#35BD88'][index]}" stroke="#fff" stroke-width="2"></circle>`;
+    }).join('')}
+    ${labels.map((label) => {
+      const labelPoint = polarPoint(label.angle, 153);
+      const anchor = label.angle === 270 ? 'end' : label.angle === 90 ? 'start' : 'middle';
+      const dy = label.angle === 0 ? -8 : label.angle === 180 ? 20 : 5;
+      return `<text x="${labelPoint.x}" y="${labelPoint.y + dy}" text-anchor="${anchor}" font-size="13" font-weight="700" fill="#5A4665">${label.text}</text>`;
+    }).join('')}
+  `;
+  setTimeout(() => {
+    const radar = document.getElementById('readiness-radar');
+    if (radar) {
+      radar.classList.add('glow-active');
+    }
+  }, 800);
+}
+
+function getMaturityProgress(total) {
+  const currentLevel = getMaturityLevel(total);
+  const nextLevel = maturityLevels.find(level => level.level === currentLevel.level + 1) || null;
+  const pointsToNext = nextLevel ? nextLevel.min - total : 0;
+
+  return { currentLevel, nextLevel, pointsToNext };
+}
+
+function renderMaturity(total, answers) {
+  const { currentLevel, nextLevel, pointsToNext } = getMaturityProgress(total);
+  const topActions = getPriorityActions(answers);
+  const focusAreas = formatList(topActions.map(item => item.action.label.toLowerCase()));
+
+  document.getElementById('maturity-title').textContent = `Level ${currentLevel.level}: ${currentLevel.name}`;
+  document.getElementById('maturity-badge').textContent = `Level ${currentLevel.level}`;
+  document.getElementById('maturity-summary').textContent = currentLevel.summary;
+
+  document.getElementById('maturity-scale').innerHTML = maturityLevels.map(level => `
+    <div class="maturity-step ${level.level < currentLevel.level ? 'completed' : ''} ${level.level === currentLevel.level ? 'active' : ''}">
+      <span class="maturity-step-level">Level ${level.level}</span>
+      <span class="maturity-step-title">${level.name}</span>
+      <span class="maturity-step-copy">${level.capacity}</span>
+    </div>
+  `).join('');
+
+  return { currentLevel, nextLevel, pointsToNext };
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions-container');
+  shuffledQuestions.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'question-card' + (qi === 0 ? ' active' : '');
+    card.id = 'q-' + qi;
+    card.innerHTML = `
+      <div class="q-dimension">${q.dimension}</div>
+      <div class="q-text">${q.text}</div>
+      ${q.answers.map((a, ai) => `
+        <button class="answer-option" data-qi="${qi}" data-ai="${ai}" data-pts="${a.pts}" onclick="selectAnswer(${qi},${ai},${a.pts})">${a.text}</button>
+      `).join('')}
+    `;
+    container.appendChild(card);
+  });
+  requestAnimationFrame(() => lockQuestionContainerHeight(true));
+  updateProgress();
+}
+
+function lockQuestionContainerHeight(forceRecalc = false) {
+  const container = document.getElementById('questions-container');
+  if (!container) return;
+  if (forceRecalc) lockedQuestionHeight = 0;
+  if (!lockedQuestionHeight) {
+    const cards = Array.from(container.querySelectorAll('.question-card'));
+    lockedQuestionHeight = Math.max(...cards.map(card => card.scrollHeight), 0);
+  }
+  if (lockedQuestionHeight) {
+    container.style.height = lockedQuestionHeight + 'px';
+  }
+}
+
+function transitionToQuestion(nextIndex) {
+  if (isTransitioning || nextIndex === current) return;
+  const outgoing = document.getElementById('q-' + current);
+  const incoming = document.getElementById('q-' + nextIndex);
+  if (!outgoing || !incoming) return;
+
+  isTransitioning = true;
+  incoming.classList.add('active');
+  outgoing.classList.add('exiting');
+
+  current = nextIndex;
+
+  document.getElementById('btn-next').classList.toggle('enabled', selected[current] !== null);
+  document.getElementById('btn-back').classList.toggle('hidden', current === 0);
+  document.getElementById('btn-next').textContent = current === questions.length - 1 ? 'See Results →' : 'Next →';
+  updateProgress();
+
+  setTimeout(() => {
+    outgoing.classList.remove('active', 'exiting');
+    isTransitioning = false;
+  }, 380);
+}
+
+function selectAnswer(qi, ai, pts) {
+  if (isTransitioning || qi !== current) return;
+  selected[qi] = pts;
+  document.querySelectorAll(`[data-qi="${qi}"]`).forEach(btn => btn.classList.remove('selected'));
+  const chosen = document.querySelector(`[data-qi="${qi}"][data-ai="${ai}"]`);
+  chosen.classList.add('selected');
+  document.getElementById('btn-next').classList.add('enabled');
+  if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+  autoAdvanceTimer = setTimeout(() => {
+    if (qi === current && selected[current] !== null) nextQuestion();
+  }, 260);
+}
+
+function nextQuestion() {
+  if (autoAdvanceTimer) {
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+  if (isTransitioning) return;
+  if (selected[current] === null) return;
+  if (current < questions.length - 1) {
+    transitionToQuestion(current + 1);
+  } else {
+    showResults();
+  }
+}
+
+function prevQuestion() {
+  if (autoAdvanceTimer) {
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+  if (isTransitioning) return;
+  if (current > 0) {
+    transitionToQuestion(current - 1);
+  }
+}
+
+function updateProgress() {
+  document.getElementById('q-counter').textContent = current + 1;
+  document.getElementById('progress-fill').style.width = ((current + 1) / questions.length * 100) + '%';
+}
+
+const HUBSPOT_PORTAL_ID = '5554356';
+const HUBSPOT_FORM_GUID  = 'c7b34d7e-c0fe-4478-9ff5-aefe38a2b6ef';
+
+// Populated by showResults() so quiz data is available when the gate form submits
+let quizResults = {};
+
+function submitToHubSpot(data) {
+  if (HUBSPOT_PORTAL_ID === 'YOUR_PORTAL_ID') return;
+  const quizFields = [
+    { objectTypeId: '0-1', name: 'ai_readiness_score',          value: String(quizResults.score               ?? '') },
+    { objectTypeId: '0-1', name: 'ai_maturity_level',           value: quizResults.maturityLevel              ?? '' },
+    { objectTypeId: '0-1', name: 'ai_biggest_gap',              value: quizResults.biggestGap                 ?? '' },
+    { objectTypeId: '0-1', name: 'ai_strongest_asset',          value: quizResults.strongestAsset             ?? '' },
+    { objectTypeId: '0-1', name: 'ai_next_step_1',              value: quizResults.nextStep1                  ?? '' },
+    { objectTypeId: '0-1', name: 'ai_next_step_2',              value: quizResults.nextStep2                  ?? '' },
+    { objectTypeId: '0-1', name: 'ai_next_step_3',              value: quizResults.nextStep3                  ?? '' },
+    { objectTypeId: '0-1', name: 'ai_playbook_snippet_1',       value: quizResults.playbookSnippet1           ?? '' },
+    { objectTypeId: '0-1', name: 'ai_playbook_snippet_2',       value: quizResults.playbookSnippet2           ?? '' },
+    { objectTypeId: '0-1', name: 'ai_strategic_readiness',      value: String(quizResults.strategicScore      ?? '') },
+    { objectTypeId: '0-1', name: 'ai_operational_readiness',    value: String(quizResults.operationalScore    ?? '') },
+    { objectTypeId: '0-1', name: 'ai_execution_readiness',      value: String(quizResults.executionScore      ?? '') },
+    { objectTypeId: '0-1', name: 'ai_sustainability_readiness', value: String(quizResults.sustainabilityScore ?? '') },
+  ];
+  fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: [
+        { objectTypeId: '0-1', name: 'firstname', value: data.firstname },
+        { objectTypeId: '0-1', name: 'lastname',  value: data.lastname  },
+        { objectTypeId: '0-1', name: 'email',     value: data.email     },
+        { objectTypeId: '0-1', name: 'company',   value: data.company   },
+        ...quizFields,
+      ],
+      context: { pageUri: window.location.href, pageName: document.title },
+    }),
+  }).catch(() => {});
+}
+
+function handleGateSubmit() {
+  const fieldDefs = [
+    { id: 'gate-firstname',   key: 'firstname' },
+    { id: 'gate-lastname',    key: 'lastname'  },
+    { id: 'gate-email-input', key: 'email',    isEmail: true },
+    { id: 'gate-company',     key: 'company'   },
+  ];
+  const values = {};
+  let firstInvalid = null;
+  fieldDefs.forEach(({ id, key, isEmail }) => {
+    const el = document.getElementById(id);
+    const val = el.value.trim();
+    const ok = val && (!isEmail || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+    el.classList.toggle('error', !ok);
+    if (!ok && !firstInvalid) firstInvalid = el;
+    values[key] = val;
+  });
+  if (firstInvalid) { firstInvalid.focus(); return; }
+  submitToHubSpot(values);
+  document.getElementById('gate-email-form').style.display = 'none';
+  document.getElementById('gate-success').style.display = 'block';
+  setTimeout(() => {
+    const gateCard = document.getElementById('gate-card');
+    const gatedContent = document.getElementById('gated-content');
+    gateCard.style.transition = 'opacity 0.4s ease';
+    gateCard.style.opacity = '0';
+    gatedContent.classList.add('unlocked');
+    setTimeout(() => {
+      gateCard.style.display = 'none';
+      const maturityCard = document.querySelector('.maturity-card');
+      if (maturityCard) maturityCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 450);
+  }, 900);
+}
+
+function handleEmailSubmit() {
+  // Guide section download button replaced — kept for backwards compatibility
+}
+
+function showResults() {
+  if (autoAdvanceTimer) {
+    clearTimeout(autoAdvanceTimer);
+    autoAdvanceTimer = null;
+  }
+  document.getElementById('quiz-body').style.display = 'none';
+  const results = document.getElementById('results-section');
+  results.classList.add('active');
+
+  // Populate gate cover image from guide section
+  const gateCoverImg = document.getElementById('gate-cover-img');
+  const guideCover = document.querySelector('.guide-cover');
+  if (gateCoverImg && guideCover) gateCoverImg.src = guideCover.src;
+
+  const total = selected.reduce((a, b) => a + b, 0);
+  const pct = Math.round((total - 8) / 24 * 100);
+
+  // Profile
+  let profile = '';
+  if (total <= 13) profile = 'Early Explorer';
+  else if (total <= 20) profile = 'Building Foundations';
+  else if (total <= 27) profile = 'Ready to Launch';
+  else profile = 'Scaling with Confidence';
+
+  document.getElementById('score-profile').textContent = profile;
+  renderMaturity(total, selected);
+
+  // Animate the percentage counting up
+  const pctEl = document.getElementById('score-pct');
+  const countStart = performance.now();
+  const countDuration = 1200;
+  const countStep = (now) => {
+    const progress = Math.min((now - countStart) / countDuration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    pctEl.textContent = Math.round(eased * pct) + '%';
+    if (progress < 1) requestAnimationFrame(countStep);
+  };
+  requestAnimationFrame(countStep);
+
+  // Animate score arc
+  const arcFill = document.getElementById('score-arc-fill');
+  if (arcFill) {
+    const circumference = 326.7;
+    const offset = circumference - (pct / 100) * circumference;
+    setTimeout(() => {
+      arcFill.style.strokeDashoffset = offset;
+    }, 200);
+  }
+
+  // Dimensions
+  const dimensionScores = getDimensionScores(selected);
+  const strongestDimension = getStrongestDimension(dimensionScores);
+  const weakestDimension = getWeakestDimension(dimensionScores);
+  document.getElementById('score-intro').textContent = getScoreIntro(profile, weakestDimension);
+  renderRadarChart(dimensionScores);
+
+  const dims = {
+    strategic: { score: dimensionScores.find(d => d.key === 'strategic').score, el: 'dim-strategic', pctEl: 'dim-strategic-pct' },
+    operational: { score: dimensionScores.find(d => d.key === 'operational').score, el: 'dim-operational', pctEl: 'dim-operational-pct' },
+    execution: { score: dimensionScores.find(d => d.key === 'execution').score, el: 'dim-execution', pctEl: 'dim-execution-pct' },
+    sustainability: { score: dimensionScores.find(d => d.key === 'sustainability').score, el: 'dim-sustainability', pctEl: 'dim-sustainability-pct' },
+  };
+
+  setTimeout(() => {
+    Object.values(dims).forEach(d => {
+      const p = Math.round((d.score - 2) / 6 * 100);
+      document.getElementById(d.el).style.width = p + '%';
+      document.getElementById(d.pctEl).textContent = p + '%';
+    });
+  }, 200);
+
+  document.getElementById('insight-strength').innerHTML = [
+    '<div class="insight-kicker">Strongest Asset</div>',
+    `<div class="insight-big-title">${strongestDimension.meta.label}</div>`,
+    `<p style="margin-top:12px;">${strongestDimension.meta.strength}</p>`,
+    '<div class="contrast-row" style="margin-top:auto;padding-top:16px;">',
+    `<div class="contrast-name"><span>Readiness score</span><strong>${strongestDimension.percentage}%</strong></div>`,
+    '<div class="contrast-track"><div class="contrast-fill strength" id="insight-strength-bar"></div></div>',
+    '</div>',
+  ].join('');
+
+  document.getElementById('insight-gap').innerHTML = [
+    '<div class="insight-kicker">Biggest Gap</div>',
+    `<div class="insight-big-title">${weakestDimension.meta.label}</div>`,
+    `<p style="margin-top:12px;">${weakestDimension.meta.gapLead} ${weakestDimension.meta.meaning}</p>`,
+    '<div class="contrast-row" style="margin-top:auto;padding-top:16px;">',
+    `<div class="contrast-name"><span>Readiness score</span><strong>${weakestDimension.percentage}%</strong></div>`,
+    '<div class="contrast-track"><div class="contrast-fill gap" id="insight-gap-bar"></div></div>',
+    '</div>',
+  ].join('');
+
+  setTimeout(() => {
+    const gapBar = document.getElementById('insight-gap-bar');
+    const strengthBar = document.getElementById('insight-strength-bar');
+    if (gapBar) gapBar.style.width = weakestDimension.percentage + '%';
+    if (strengthBar) strengthBar.style.width = strongestDimension.percentage + '%';
+  }, 260);
+
+
+  const playbookSnippets = {
+    strategic: 'Every successful AI initiative starts with a clear vision. Setting ambitious yet measurable goals ensures your efforts make sense strategically and earn cross-functional support.',
+    operational: 'Before you can improve how your team works, you need to understand where it is today. Mapping current processes helps uncover inefficiencies and identify where AI can have the biggest impact.',
+    execution: 'Choosing the right AI partner is critical. Look for scalability, seamless integration with your existing systems, ease of use for non-technical teams, and strong vendor support.',
+    sustainability: "AI isn't a one-and-done project — it's a continuous journey. A phased rollout, ongoing team training, and a commitment to iterative improvement are what turn a pilot into lasting change.",
+  };
+  const playbookSnippet = playbookSnippets[weakestDimension.key] || '';
+  document.getElementById('insight-playbook').innerHTML = `
+    <div class="section-number">04 — Start Here In The Playbook</div>
+    <p>We already know where to point you next. These are the two sections most aligned to the gap your answers surfaced.</p>
+    <div class="playbook-layout">
+      <div class="playbook-cover-col">
+        <img class="playbook-cover-preview" src="${document.querySelector('.guide-cover')?.src || ''}" alt="AI Playbook for Accounting cover">
+        <a class="playbook-read-btn" href="#guide">Read Now</a>
+      </div>
+      <div class="playbook-content">
+        <div class="playbook-steps">
+          ${weakestDimension.meta.steps.map((item) => `
+            <div class="playbook-step">
+              <span class="playbook-step-badge">${item.step}</span>
+              <span class="playbook-step-title">${item.title}</span>
+              <span class="playbook-step-snippet">${playbookSnippet}</span>
+              <span class="playbook-step-page">Page ${item.page}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      </div>
+    </div>
+  `;
+
+  const nextSteps = getPriorityActions(selected);
+
+  // Store computed results so the gate form can include them in the HubSpot submission
+  quizResults = {
+    score:               pct,
+    maturityLevel:       profile,
+    biggestGap:          weakestDimension.meta.label,
+    strongestAsset:      strongestDimension.meta.label,
+    nextStep1:           nextSteps[0] ? nextSteps[0].action.label : '',
+    nextStep2:           nextSteps[1] ? nextSteps[1].action.label : '',
+    nextStep3:           nextSteps[2] ? nextSteps[2].action.label : '',
+    playbookSnippet1:    weakestDimension.meta.steps[0] ? `Page ${weakestDimension.meta.steps[0].page}: ${weakestDimension.meta.steps[0].title}\n${playbookSnippet}` : '',
+    playbookSnippet2:    weakestDimension.meta.steps[1] ? `Page ${weakestDimension.meta.steps[1].page}: ${weakestDimension.meta.steps[1].title}\n${playbookSnippet}` : '',
+    strategicScore:      Math.round((dims.strategic.score     - 2) / 6 * 100),
+    operationalScore:    Math.round((dims.operational.score   - 2) / 6 * 100),
+    executionScore:      Math.round((dims.execution.score     - 2) / 6 * 100),
+    sustainabilityScore: Math.round((dims.sustainability.score - 2) / 6 * 100),
+  };
+
+  document.getElementById('insight-next-steps').innerHTML = `
+    <div class="section-number">03 — Your next 3 moves</div>
+    <div class="action-cards">
+      ${nextSteps.map((item, index) => `
+        <div class="action-card">
+          <div class="action-card-top">
+            <span class="action-card-num">${index + 1}</span>
+            <div class="action-card-title">${item.action.label}</div>
+          </div>
+          <p>${item.action.text}</p>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderFloqademy(selected);
+}
+
+// === SCROLL ANIMATIONS ===
+
+
+// Intersection Observer for narrative reveals
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+
+document.querySelectorAll('.narrative .reveal').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.08}s`;
+  revealObserver.observe(el);
+});
+
+// Quiz header reveal
+const quizHeader = document.querySelector('.quiz-header');
+if (quizHeader) revealObserver.observe(quizHeader);
+
+window.addEventListener('resize', () => {
+  lockedQuestionHeight = 0;
+  lockQuestionContainerHeight(true);
+});
+
+renderQuestions();
+</script>
+
+</body>
+</html>
