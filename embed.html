@@ -2105,6 +2105,16 @@
       <div class="insight-card results-reveal" id="insight-next-steps" style="--delay:0.46s;"></div>
       <div class="insight-card playbook-card results-reveal" id="insight-playbook" style="--delay:0.56s;"></div>
 
+      <div class="floqademy-section results-reveal" id="floqademy-section" style="--delay:0.66s;">
+        <div class="floqademy-header">
+          <div class="floqademy-eyebrow">Floqademy</div>
+          <h3>Keep learning — resources picked for your profile</h3>
+          <p class="fq-subtext">Curated courses and guides based on where your team is today.</p>
+        </div>
+        <div class="floqademy-cards" id="floqademy-cards"></div>
+        <a class="floqademy-browse-all" href="https://floqademy.floqast.com/page/library#featured-courses_ai-education" target="_blank" rel="noopener">Browse all AI resources →</a>
+      </div>
+
 
         </div><!-- /gated-content -->
       </div><!-- /results-gate -->
@@ -2724,7 +2734,10 @@ function submitToHubSpot(data) {
       ],
       context: { pageUri: window.location.href, pageName: document.title },
     }),
-  }).catch(() => {});
+  }).then(r => r.json()).then(data => {
+    if (data.status === 'error') console.error('[HubSpot] Submission error:', data);
+    else console.log('[HubSpot] Submission OK:', data);
+  }).catch(err => console.error('[HubSpot] Network error:', err));
 }
 
 function handleGateSubmit() {
