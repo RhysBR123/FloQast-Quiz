@@ -2720,7 +2720,8 @@ async function submitToHubSpot(data) {
     ipAddress = ipJson.ip || '';
   } catch (_) {}
 
-  const hutk = getCookie('hubspotutk');
+  const urlHutk = new URLSearchParams(window.location.search).get('hutk');
+  const hutk = urlHutk || getCookie('hubspotutk');
   const context = { pageUri: window.location.href, pageName: document.title };
   if (hutk) context.hutk = hutk;
   if (ipAddress) context.ipAddress = ipAddress;
