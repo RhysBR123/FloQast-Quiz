@@ -2500,12 +2500,12 @@ function getWeakestDimension(dimensionScores) {
 function getScoreIntro(profile, weakestDimension) {
   const weakest = weakestDimension.meta.shortLabel.toLowerCase();
   const intros = {
-    'Early Explorer': `You have genuine AI intent, but the fastest way to create momentum now is to strengthen your ${weakest} foundation before tools start competing for attention.`,
-    'Building Foundations': `You are moving beyond curiosity. Tightening ${weakest} is what will help convert interest into a pilot that leadership can actually support.`,
-    'Ready to Launch': `You are closer to action than most teams. The biggest unlock from here is shoring up ${weakest} so execution does not stall.`,
-    'Scaling with Confidence': `You already have real momentum. The highest-leverage move now is making sure ${weakest} keeps pace with how quickly your AI ambition is growing.`,
+    'Explorer': `You have genuine AI intent, but the fastest way to create momentum now is to strengthen your ${weakest} foundation before tools start competing for attention.`,
+    'Scaling: Building Foundations': `You are moving beyond curiosity. Tightening ${weakest} is what will help convert interest into a pilot that leadership can actually support.`,
+    'Scaling: Ready to Launch': `You are closer to action than most teams. The biggest unlock from here is shoring up ${weakest} so execution does not stall.`,
+    'Leader': `You already have real momentum. The highest-leverage move now is making sure ${weakest} keeps pace with how quickly your AI ambition is growing.`,
   };
-  return intros[profile] || intros['Building Foundations'];
+  return intros[profile] || intros['Scaling: Building Foundations'];
 }
 
 function polarPoint(angleDeg, radius, center = 160) {
@@ -2816,10 +2816,10 @@ function showResults() {
 
   // Profile
   let profile = '';
-  if (total <= 13) profile = 'Early Explorer';
-  else if (total <= 20) profile = 'Building Foundations';
-  else if (total <= 27) profile = 'Ready to Launch';
-  else profile = 'Scaling with Confidence';
+  if (total <= 13) profile = 'Explorer';
+  else if (total <= 20) profile = 'Scaling: Building Foundations';
+  else if (total <= 27) profile = 'Scaling: Ready to Launch';
+  else profile = 'Leader';
 
   document.getElementById('score-profile').textContent = profile;
   renderMaturity(total, selected);
