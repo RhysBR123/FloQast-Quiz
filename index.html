@@ -2179,6 +2179,11 @@
   </div>
 </section>
 
+<script type="module">
+import { saveBenchmarkAssessmentSubmission } from './assets/js/benchmark-store.mjs';
+
+globalThis.saveBenchmarkAssessmentSubmission = (payload) => saveBenchmarkAssessmentSubmission(payload);
+</script>
 
 <script>
 const questions = [
@@ -2272,6 +2277,7 @@ const questions = [
 
 let current = 0;
 let selected = new Array(questions.length).fill(null);
+let selectedAnswerIndexes = new Array(questions.length).fill(null);
 let isTransitioning = false;
 let lockedQuestionHeight = 0;
 let autoAdvanceTimer = null;
@@ -2715,6 +2721,7 @@ function transitionToQuestion(nextIndex) {
 function selectAnswer(qi, ai, pts) {
   if (isTransitioning || qi !== current) return;
   selected[qi] = pts;
+  selectedAnswerIndexes[qi] = ai;
   document.querySelectorAll(`[data-qi="${qi}"]`).forEach(btn => btn.classList.remove('selected'));
   const chosen = document.querySelector(`[data-qi="${qi}"][data-ai="${ai}"]`);
   chosen.classList.add('selected');
@@ -2812,6 +2819,27 @@ async function submitToHubSpot(data) {
   }).catch(() => {});
 }
 
+function submitToBenchmark(data) {
+  if (typeof globalThis.saveBenchmarkAssessmentSubmission !== 'function') return Promise.resolve(null);
+  if (!quizResults.profile || !Array.isArray(quizResults.dimensionScores)) return Promise.resolve(null);
+
+  return globalThis.saveBenchmarkAssessmentSubmission({
+    gateData: data,
+    eventSlug: null,
+    source: 'campaign-web',
+    answers: Array.isArray(quizResults.answers) ? quizResults.answers : [],
+    result: {
+      totalPoints: quizResults.totalPoints,
+      totalScorePct: quizResults.score,
+      profile: quizResults.profile,
+      dimensionScores: quizResults.dimensionScores,
+      strongestDimension: quizResults.strongestDimension,
+      weakestDimension: quizResults.weakestDimension,
+      nextSteps: quizResults.nextSteps,
+    },
+  });
+}
+
 function handleGateSubmit() {
   const fieldDefs = [
     { id: 'gate-firstname',   key: 'firstname' },
@@ -2831,6 +2859,7 @@ function handleGateSubmit() {
   });
   if (firstInvalid) { firstInvalid.focus(); return; }
   submitToHubSpot(values);
+  submitToBenchmark(values).catch(err => console.warn('[Benchmark] Submission error:', err));
   document.getElementById('gate-email-form').style.display = 'none';
   document.getElementById('gate-success').style.display = 'block';
   setTimeout(() => {
@@ -2982,10 +3011,24 @@ function showResults() {
   `;
 
   const nextSteps = getPriorityActions(selected);
+  const benchmarkAnswers = shuffledQuestions.map((question, questionIndex) => {
+    const answerIndex = selectedAnswerIndexes[questionIndex];
+    const answer = typeof answerIndex === 'number' ? question.answers[answerIndex] : null;
+    return {
+      question_index: questionIndex,
+      dimension: question.dimension,
+      question: question.text,
+      answer_index: answerIndex,
+      answer_text: answer ? answer.text : '',
+      points: selected[questionIndex] ?? null,
+    };
+  });
 
   // Store computed results so the gate form can include them in the HubSpot submission
   quizResults = {
+    totalPoints:          total,
     score:               pct,
+    profile:             profile,
     maturityLevel:       profile,
     biggestGap:          weakestDimension.meta.label,
     strongestAsset:      strongestDimension.meta.label,
@@ -2998,6 +3041,11 @@ function showResults() {
     operationalScore:    Math.round((dims.operational.score   - 2) / 6 * 100),
     executionScore:      Math.round((dims.execution.score     - 2) / 6 * 100),
     sustainabilityScore: Math.round((dims.sustainability.score - 2) / 6 * 100),
+    dimensionScores:     dimensionScores,
+    strongestDimension:  strongestDimension,
+    weakestDimension:    weakestDimension,
+    nextSteps:           nextSteps,
+    answers:             benchmarkAnswers,
   };
 
   document.getElementById('insight-next-steps').innerHTML = `
