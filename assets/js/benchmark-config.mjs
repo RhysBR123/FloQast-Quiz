@@ -1,6 +1,6 @@
 const baseConfig = {
-  supabaseUrl: 'https://yckcchwhxznltqxrocrf.supabase.co',
-  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlja2NjaHdoeHpubHRxeHJvY3JmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjQ2MzEsImV4cCI6MjA3OTg0MDYzMX0.AKhQoLY2FBnyWzaW3uLVVMNOmL8FshJpLBUeGszIw5Q',
+  supabaseUrl: 'https://krzilteeeslvyudvgfuh.supabase.co',
+  supabaseAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtyemlsdGVlZXNsdnl1ZHZnZnVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwODc0NTEsImV4cCI6MjA5MzY2MzQ1MX0.HLExr86rI986vzC6YwjlwvSeM-u617nTulRz8Fksay0',
   supabaseSchema: 'public',
   supabaseWriteTable: 'quiz_sessions',
   useLocalFallbackWhenUnconfigured: true,
