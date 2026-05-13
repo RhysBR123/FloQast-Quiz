@@ -2803,6 +2803,15 @@ async function submitToHubSpot(data) {
     { objectTypeId: '0-1', name: 'ai_execution_readiness',      value: String(quizResults.executionScore      ?? '') },
     { objectTypeId: '0-1', name: 'ai_sustainability_readiness', value: String(quizResults.sustainabilityScore ?? '') },
   ];
+
+  const _urlParams = new URLSearchParams(window.location.search);
+  const trackingFields = ['landing_page','conversion_page','utm_source','utm_content','utm_campaign','utm_medium','utm_term','utm_id','gclid']
+    .reduce((acc, name) => {
+      const val = _urlParams.get(name);
+      if (val) acc.push({ objectTypeId: '0-1', name, value: val });
+      return acc;
+    }, []);
+
   fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -2813,6 +2822,7 @@ async function submitToHubSpot(data) {
         { objectTypeId: '0-1', name: 'email',     value: data.email     },
         { objectTypeId: '0-1', name: 'company',   value: data.company   },
         ...quizFields,
+        ...trackingFields,
       ],
       context,
     }),
